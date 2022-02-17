@@ -44,28 +44,39 @@ import imageLoader from '../imageLoader';
   }
 }
 
-const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
-
+const ProductCard = ( props: {product: Product}) => {
   return(
-    <div>
-      <button onClick={() => console.log(productTable)} >Click me</button>
-      {productTable.map((product: Product, index: number) => (
-        <div key={product.id}>
-          <h5>{product.title}</h5>
-          <p>{product.description}</p>
-          <p>{product.image}</p>
-        </div>
-      ))}
-    </div>
-  )
+    <Card
+      variant="outlined"
+      key={props.product.id}
+      style={{paddingTop: "25px", paddingBottom: "25px"}}
+      // sx={{maxHeight: "100", maxWidth: "100"}}
+    >        
+      <Paper style={{display: "flex", justifyContent: "center"}} elevation={0}>
+        <Image
+          src={props.product.image}
+          alt={props.product.title}
+          unoptimized
+          loader={imageLoader}
+          width="200"
+          height="250"
+          // style={{}}
+        />
+    </Paper>
+      <CardContent>
+        <Typography gutterBottom variant="h6">{props.product.title}</Typography>
+        <Typography >{props.product.price}$</Typography>
+      </CardContent>
+    </Card>
+  );
 }
+
 
 export const getStaticProps: GetStaticProps = async () => {
   
-  // const res: getProductResults = await fetchData();
   const {data} = await axios.get("https://fakestoreapi.com/products");
   const table: Product[] = data;
-  console.log(table);
+  // console.log(table);
 
   return {
     props: {
