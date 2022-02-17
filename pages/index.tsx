@@ -77,28 +77,35 @@ const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
 
 const ProductCard = ( props: {product: Product}) => {
   return(
-    <Card
-      variant="outlined"
-      key={props.product.id}
-      style={{paddingTop: "25px", paddingBottom: "25px"}}
-      // sx={{maxHeight: "100", maxWidth: "100"}}
+      <Card
+        variant="outlined"
+        key={props.product.id}
+      >
     >        
-      <Paper style={{display: "flex", justifyContent: "center"}} elevation={0}>
-        <Image
-          src={props.product.image}
-          alt={props.product.title}
-          unoptimized
-          loader={imageLoader}
-          width="200"
-          height="250"
-          // style={{}}
-        />
-    </Paper>
-      <CardContent>
-        <Typography gutterBottom variant="h6">{props.product.title}</Typography>
-        <Typography >{props.product.price}$</Typography>
-      </CardContent>
-    </Card>
+      >
+        <Link href={`/product/${props.product.id}`}>
+          <CardActionArea>
+
+            <Paper style={{ display: "flex", justifyContent: "center", margin: "25px" }} elevation={0}>
+              <Image
+                src={props.product.image}
+                alt={props.product.title}
+                unoptimized
+                loader={imageLoader}
+                width="200"
+                height="250"
+              />
+            </Paper>
+            <CardContent>
+              <Typography gutterBottom variant="h6">{props.product.title}</Typography>
+              <Typography color="text.secondary" >{props.product.price}$</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Link>
+        <CardActions>
+          <Button size="small" style={{ color: "#C78283", backgroundColor: "#F2E3E3" }} endIcon={<ShoppingCartIcon />}>Add to Cart</Button>
+        </CardActions>
+      </Card>
   );
 }
 
