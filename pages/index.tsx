@@ -50,6 +50,7 @@ const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
   return(
     <Grid>
 
+      <TopBar />
 
       
       <Box sx={{ flexGrow: 1 }}>
