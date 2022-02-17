@@ -52,32 +52,7 @@ const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
 
       <TopBar />
 
-      
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" style={{backgroundColor: "#F3D9DC", color: "#C78283"}}>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              {/* <MenuIcon /> */}
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              ShopIt
-            </Typography>
-            <Button 
-            color="inherit"
-            >
-              Login
-            </Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
-
-      <Grid style={{display: "flex", justifyContent: "space-evenly", flexDirection: "row", flexWrap: "wrap"}}>
+      <Grid style={{display: "flex", justifyContent: "space-evenly", flexDirection: "row", flexWrap: "wrap", margin: "25px"}}>
       {productTable.map((product) => {
         return (
           <Grid item xs={8} md={4} key={product.id} style={{padding: "25px"}}>
@@ -98,8 +73,6 @@ const ProductCard = ( props: {product: Product}) => {
       <Card
         variant="outlined"
         key={props.product.id}
-      >
-    >        
       >
         <Link href={`/product/${props.product.id}`}>
           <CardActionArea>
