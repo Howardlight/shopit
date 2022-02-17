@@ -28,20 +28,51 @@ import imageLoader from '../imageLoader';
 //TODO: add a cart system
 //TODO: Improve the ProductCard
 
-  try {
-    const response = await axios.get("https://fakestoreapi.com/products");
-    const results: getProductResults = response.body;
+const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
 
-    console.log(results);
-    console.log("fetchData Finished");
-    return results;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      axios.handleAxiosError(error);
-    } else {
-      axios.handleUnexpectedError(error);
-    }
-  }
+  return(
+    <Grid>
+
+
+      
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" style={{backgroundColor: "#F3D9DC", color: "#C78283"}}>
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              {/* <MenuIcon /> */}
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              ShopIt
+            </Typography>
+            <Button 
+            color="inherit"
+            >
+              Login
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
+      <Grid style={{display: "flex", justifyContent: "space-evenly", flexDirection: "row", flexWrap: "wrap"}}>
+      {productTable.map((product) => {
+        return (
+          <Grid item xs={8} md={4} key={product.id} style={{padding: "25px"}}>
+            <ProductCard
+              product={product}
+              key={product.id}
+            />
+        </Grid>
+        );
+      })}
+      </Grid>
+    </Grid>
+  );
 }
 
 const ProductCard = ( props: {product: Product}) => {
