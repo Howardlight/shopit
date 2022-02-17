@@ -5,9 +5,28 @@ import styles from '../styles/Home.module.css'
 const axios = require('axios').default;
 import * as React from "react";
 import { getProductResults, Product } from '../types';
+import {
+  Card, 
+  CardContent, 
+  CardMedia, 
+  Typography,
+  Container,
+  Grid,
+  Box,
+  Paper,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Button
+} from "@mui/material";
+import imageLoader from '../imageLoader';
 
 
-const fetchData = async () => {
+//TODO: Add a footer
+//TODO: branch different components into their own file
+//TODO: add Pages to each item
+//TODO: add a cart system
+//TODO: Improve the ProductCard
 
   try {
     const response = await axios.get("https://fakestoreapi.com/products");
