@@ -1,6 +1,13 @@
 import type { GetStaticProps, NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+
+
+
+// NEXT
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+
+
 import styles from '../styles/Home.module.css'
 const axios = require('axios').default;
 import * as React from "react";
@@ -17,9 +24,19 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Button
+  Button,
+  CardActionArea,
+  CardActions
 } from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+
+
+
+// Components
 import imageLoader from '../imageLoader';
+import TopBar from "./TopBar";
+
 
 
 //TODO: Add a footer
