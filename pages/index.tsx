@@ -87,6 +87,7 @@ const ProductCard = ( props: {product: Product}) => {
       key={props.product.id}
     >
       <Link href={`/product/${props.product.id}`}>
+        <a>
         <CardActionArea>
 
           <Paper style={{ display: "flex", justifyContent: "center", margin: "25px" }} elevation={0}>
@@ -104,6 +105,7 @@ const ProductCard = ( props: {product: Product}) => {
             <Typography color="text.secondary" >{props.product.price}$</Typography>
           </CardContent>
         </CardActionArea>
+        </a>
       </Link>
       <CardActions>
         <Button 
