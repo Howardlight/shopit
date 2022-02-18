@@ -42,9 +42,9 @@ function ProductPage({product}: {product: Product}) {
     );
 }
 
-export async function getStaticProps({params}: {params: {id: string}}) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const {data} = await axios.get(`https://fakestoreapi.com/products/${params.id}`);
+    const {data} = await axios.get(`https://fakestoreapi.com/products/${context.query.id}`);
     const product: Product = data;
 
     return {
@@ -54,5 +54,33 @@ export async function getStaticProps({params}: {params: {id: string}}) {
     }
 
 }
+
+
+
+// export async function getStaticPaths() {
+
+//     const {data} = await axios.get("https://fakestoreapi.com/products");
+//     const table: Product[] = data;
+
+//     return {
+//         paths: table.map((product) => {
+//             return {params: {id: String(product.id)}}
+//         }),
+//         fallback: false,
+//     }
+// }
+
+// export async function getStaticProps({params}: {params: {id: string}}) {
+
+//     const {data} = await axios.get(`https://fakestoreapi.com/products/${params.id}`);
+//     const product: Product = data;
+
+//     return {
+//         props: {
+//             product,
+//         }
+//     }
+
+// }
 
 export default ProductPage;
