@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetStaticProps, NextPage, GetServerSideProps } from 'next'
 
 
 
@@ -36,7 +36,8 @@ import { useAppSelector, useAppDispatch} from "../redux/hooks";
 
 // Components
 import imageLoader from '../imageLoader';
-import TopBar from "./TopBar";
+import Layout from '../components/Layout';
+// import TopBar from "../components/TopBar";
 
 
 
@@ -47,12 +48,10 @@ import TopBar from "./TopBar";
 //TODO: Improve the ProductCard
 //TODO: add category based searches
 
-const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
+function Home({productTable}: {productTable: Product[]}) {
 
   return(
     <Grid>
-
-      <TopBar />
 
       <Grid style={{display: "flex", justifyContent: "space-evenly", flexDirection: "row", flexWrap: "wrap", margin: "25px"}}>
       {productTable.map((product) => {
@@ -68,6 +67,11 @@ const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
       </Grid>
     </Grid>
   );
+}
+
+
+Home.getLayout = function getLayout(page: typeof Home) {
+  return <Layout>{page}</Layout>
 }
 
 const ProductCard = ( props: {product: Product}) => {
@@ -114,6 +118,21 @@ const ProductCard = ( props: {product: Product}) => {
     </Card>
   );
 }
+
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+
+//   const {data} = await axios.get(`https://fakestoreapi.com/products/`);
+//   const productTable: Product[] = data;
+//   // console.log(productTable);
+
+//   return {
+//       props: {
+//           productTable,
+//       }
+//   }
+
+// }
 
 
 export const getStaticProps: GetStaticProps = async () => {
