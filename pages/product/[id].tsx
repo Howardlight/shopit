@@ -7,17 +7,15 @@ import { Grid, Typography, } from "@mui/material";
 import { Category, Rating } from "../../types";
 
 //Components
-import TopBar from "../TopBar";
+// import TopBar from "../../components/TopBar";
 import { GetServerSideProps } from "next";
+import Layout from "../../components/Layout";
 
 
 
 function ProductPage({product}: {product: Product}) {
     return(
         <Grid>
-
-            <TopBar />
-
 
             <Grid style={{display: "flex", justifyContent: "center"}}>
                 <Image 
@@ -40,6 +38,10 @@ function ProductPage({product}: {product: Product}) {
 
         </Grid>
     );
+}
+
+ProductPage.getLayout = function getLayout(page: typeof ProductPage) {
+    return <Layout>{page}</Layout>
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
