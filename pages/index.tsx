@@ -30,8 +30,9 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-
-
+//Redux
+import { addToCart } from '../redux/CartSlice';
+import { useAppSelector, useAppDispatch} from "../redux/hooks";
 
 // Components
 import imageLoader from '../imageLoader';
@@ -44,6 +45,7 @@ import TopBar from "./TopBar";
 //TODO: add Pages to each item
 //TODO: add a cart system
 //TODO: Improve the ProductCard
+//TODO: add category based searches
 
 const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
 
@@ -69,34 +71,47 @@ const Home: NextPage<{productTable: Product[]}> = ({productTable}) => {
 }
 
 const ProductCard = ( props: {product: Product}) => {
-  return(
-      <Card
-        variant="outlined"
-        key={props.product.id}
-      >
-        <Link href={`/product/${props.product.id}`}>
-          <CardActionArea>
+  
+  const dispatch = useAppDispatch();
+  
 
-            <Paper style={{ display: "flex", justifyContent: "center", margin: "25px" }} elevation={0}>
-              <Image
-                src={props.product.image}
-                alt={props.product.title}
-                unoptimized
-                loader={imageLoader}
-                width="200"
-                height="250"
-              />
-            </Paper>
-            <CardContent>
-              <Typography gutterBottom variant="h6">{props.product.title}</Typography>
-              <Typography color="text.secondary" >{props.product.price}$</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Link>
-        <CardActions>
-          <Button size="small" style={{ color: "#C78283", backgroundColor: "#F2E3E3" }} endIcon={<ShoppingCartIcon />}>Add to Cart</Button>
-        </CardActions>
-      </Card>
+  // TODO: at AddToCart Button, Add a notification for when the user clicks the button
+  // example: Item Added to your cart!
+  return (
+    <Card
+      variant="outlined"
+      key={props.product.id}
+    >
+      <Link href={`/product/${props.product.id}`}>
+        <CardActionArea>
+
+          <Paper style={{ display: "flex", justifyContent: "center", margin: "25px" }} elevation={0}>
+            <Image
+              src={props.product.image}
+              alt={props.product.title}
+              unoptimized
+              loader={imageLoader}
+              width="200"
+              height="250"
+            />
+          </Paper>
+          <CardContent>
+            <Typography gutterBottom variant="h6">{props.product.title}</Typography>
+            <Typography color="text.secondary" >{props.product.price}$</Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
+      <CardActions>
+        <Button 
+        size="small" 
+        style={{ color: "#C78283", backgroundColor: "#F2E3E3" }} 
+        endIcon={<ShoppingCartIcon />}
+        onClick={() => dispatch(addToCart(props.product))}
+        >
+          Add to Cart
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 
