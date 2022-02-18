@@ -10,6 +10,7 @@ export interface Product {
     category:    Category;
     image:       string;
     rating:      Rating;
+    quantity?:   number;
 }
 
 export enum Category {
