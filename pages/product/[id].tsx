@@ -3,7 +3,13 @@ import { Product } from "../../types";
 import Image from "next/image";
 import axios from "axios";
 
-import { Grid, Typography, } from "@mui/material";
+import { 
+    Grid,
+    Typography,
+    Container,
+    Button,
+    Box
+} from "@mui/material";
 import { Category, Rating } from "../../types";
 
 //Components
@@ -15,28 +21,29 @@ import Layout from "../../components/Layout";
 
 function ProductPage({product}: {product: Product}) {
     return(
-        <Grid>
-
-            <Grid style={{display: "flex", justifyContent: "center"}}>
+            <Grid style={{minHeight: "80vh",display: "flex", justifyContent: "space-evenly", marginTop: "50px", marginBottom: "50px", alignItems: "center", gap: "30px"}}>
                 <Image 
                 src={product.image} 
                 alt={product.title} 
                 loader={imageLoader} 
                 unoptimized 
-                height={"250"} 
-                width={"250"} 
+                height={"350"} 
+                width={"300"}
                 />
-                <Grid style={{padding: "1rem"}}>
+                <Grid style={{padding: "1rem", maxWidth:"500px"}}>
                     <Typography variant="h5">{product.title}</Typography>
                     <Typography variant="h6" style={{display: "flex", justifyContent: "flex-start", padding: "1rem"}}>{product.price}$</Typography>
+                    <Box style={{display: "flex", flexDirection: "column"}}>
+                        <Button>Add To Cart</Button>
+                        <Button>Add to WishList</Button>
+                        {/* Makes these stretch to take up the whole area */}
+                    </Box>
+                    <br />
+                    <Typography variant="body1" gutterBottom>{product.description}</Typography>
                 </Grid>
 
 
             </Grid>
-
-
-
-        </Grid>
     );
 }
 
