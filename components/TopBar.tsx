@@ -1,3 +1,4 @@
+import Link from "next/link";
 
 import * as React from "react";
 import {
@@ -86,16 +87,20 @@ export default function TopBar() {
             <AppBar position="static" style={{backgroundColor: "#F3D9DC", color: "#C78283"}}>
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        ShopIt
+                        <Link href="/">
+                            <a>
+                                ShopIt
+                            </a>
+                        </Link>
                     </Typography>
                     <IconButton 
-                    color="inherit"
-                    ref={anchorRef}
-                    id="composition-button"
-                    aria-controls={open ? "composition-menu" : undefined}
-                    aria-expanded={open ? "true" : undefined}
-                    aria-haspopup="true"
-                    onClick={handleToggle}
+                        color="inherit"
+                        ref={anchorRef}
+                        id="composition-button"
+                        aria-controls={open ? "composition-menu" : undefined}
+                        aria-expanded={open ? "true" : undefined}
+                        aria-haspopup="true"
+                        onClick={handleToggle}
                     >
                         <Badge badgeContent={getTotalItemsCount()} color="error">                            
                             <ShoppingCart />
