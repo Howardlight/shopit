@@ -7,6 +7,15 @@ import { NextPage } from 'next';
 import store from "../redux/store";
 import { Provider } from "react-redux";
 
+// MUI
+import { 
+  ThemeProvider, 
+  // CssBaseline 
+} from "@mui/material";
+
+
+// Custom
+import lightTheme from "../styles/theme/lightTheme";
 
 
 type NextPageWithLayout = NextPage & {
@@ -23,7 +32,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return(
     <Provider store={store}>
-    {getLayout(<Component {...pageProps} />)}
+      <ThemeProvider theme={lightTheme}>
+        {getLayout(<Component {...pageProps} />)}
+      </ThemeProvider>
     </Provider>
   );
 }
