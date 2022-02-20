@@ -10,6 +10,7 @@ import {
     Button,
     Box
 } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Category, Rating } from "../../types";
 
 //Components
@@ -17,9 +18,15 @@ import { Category, Rating } from "../../types";
 import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 
+// Redux
+import { useAppDispatch } from "../../redux/hooks";
+import { addToCart } from "../../redux/CartSlice";
 
 
 function ProductPage({product}: {product: Product}) {
+    
+    const dispatch = useAppDispatch();
+    
     return(
             <Grid style={{minHeight: "80vh",display: "flex", justifyContent: "space-evenly", marginTop: "50px", marginBottom: "50px", alignItems: "center", gap: "30px"}}>
                 <Image 
@@ -33,9 +40,25 @@ function ProductPage({product}: {product: Product}) {
                 <Grid style={{padding: "1rem", maxWidth:"500px"}}>
                     <Typography variant="h5">{product.title}</Typography>
                     <Typography variant="h6" style={{display: "flex", justifyContent: "flex-start", padding: "1rem"}}>{product.price}$</Typography>
-                    <Box style={{display: "flex", flexDirection: "column"}}>
-                        <Button>Add To Cart</Button>
-                        <Button>Add to WishList</Button>
+                    <Box style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+                        <Button
+                        size="large"
+                        variant="outlined"
+                        style={{ 
+                            // color: "#C78283",
+                            // backgroundColor: "#F2E3E3"
+                        }} 
+                        color={"primary"}
+                        endIcon={<ShoppingCartIcon />}
+                        onClick={() => dispatch(addToCart(product))}
+                        >
+                            Add To Cart
+                        </Button>
+                        <Button
+                        size="large"
+                        >
+                            Add to WishList
+                        </Button>
                         {/* Makes these stretch to take up the whole area */}
                     </Box>
                     <br />
