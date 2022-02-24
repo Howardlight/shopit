@@ -78,7 +78,7 @@ function CartPage() {
                                     <DeleteIcon />
                                 </IconButton>
                             </ButtonGroup>
-                            <p>$ {item.quantity! * item.price}</p>
+                            <Typography variant="subtitle2">$ {item.quantity! * item.price}</Typography>
                         </div>
                     ))}
                     <h2>Grand Total: $ {getTotalPrice()}</h2>
