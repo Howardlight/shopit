@@ -7,6 +7,14 @@ import {
     removeFromCart,
 } from "../redux/CartSlice";
 
+import {
+    IconButton,
+    ButtonGroup,
+    Container,
+    Typography
+} from "@mui/material";
+
+
 // Styles
 import styles from "../styles/Cart.module.css";
 
@@ -14,6 +22,10 @@ import styles from "../styles/Cart.module.css";
 import Layout from "../components/Layout";
 import imageLoader from "../imageLoader";
 
+// Icons
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 CartPage.getLayout = function getLayout(page: typeof CartPage) {
@@ -28,60 +40,51 @@ function CartPage() {
     const getTotalPrice = () => {
         return cart.reduce(
         (accumulator, item) => accumulator + item.quantity! * item.price,
-          0
+            0
         );
-      };
+    };
 
+    // TODO: Round the Total of all items
+    // Would look Nicer
+    
     return(
-        <div 
+        <Container
         className={styles.container}
         >
             {cart.length === 0 ? (
-                <h1>Your Cart is Empty!</h1>
+                <Typography variant="h3">Your Cart is Empty!</Typography>
             ) : (
                 <>
-                    <div 
-                    className={styles.header}
-                    >
-                        <div>Image</div>
-                        <div>Product</div>
-                        <div>Price</div>
-                        <div>Quantity</div>
-                        <div>Actions</div>
-                        <div>Total Price</div>
-                    </div>
                     {cart.map((item, index) => (
-                        <div 
+                        <div
                         className={styles.body}
                         key={index}>
-                            <div 
+                            <div
                             className={styles.image}
                             >
                                 <Image loader={imageLoader} unoptimized src={item.image} alt={item.title} height="90" width="65" />
                             </div>
-                            <p>{item.title}</p>
-                            <p>$ {item.price}</p>
-                            <p>{item.quantity}</p>
-                            <div 
-                            // className={styles.buttons}
-                            >
-                                <button onClick={() => dispatch(incrementQuantity(item.id))}>
-                                    +
-                                </button>
-                                <button onClick={() => dispatch(decrementQuantity(item.id))}>
-                                    -
-                                </button>
-                                <button onClick={() => dispatch(removeFromCart(item.id))}>
-                                    x
-                                </button>
-                            </div>
+                            <Typography variant="subtitle2">{item.title}</Typography>
+                            <Typography>$ {item.price}</Typography >
+                            <Typography >{item.quantity}</Typography >
+                            <ButtonGroup style={{display: "flex", justifyContent: "space-evenly"}}>
+                                <IconButton color="primary" onClick={() => dispatch(incrementQuantity(item.id))}>
+                                    <AddIcon />
+                                </IconButton>
+                                <IconButton color="primary" onClick={() => dispatch(decrementQuantity(item.id))}>
+                                    <RemoveIcon />
+                                </IconButton>
+                                <IconButton color="error" onClick={() => dispatch(removeFromCart(item.id))}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ButtonGroup>
                             <p>$ {item.quantity! * item.price}</p>
                         </div>
                     ))}
                     <h2>Grand Total: $ {getTotalPrice()}</h2>
                 </>
             )}
-        </div>
+        </Container>
     );
 };
 
