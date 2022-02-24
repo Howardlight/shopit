@@ -8,9 +8,11 @@ import {
     Typography,
     Container,
     Button,
-    Box
+    Box,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Category, Rating } from "../../types";
 
 //Components
@@ -19,14 +21,48 @@ import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 
 // Redux
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addToCart } from "../../redux/CartSlice";
+import { addToWishlist, removeFromWishlist } from "../../redux/WishlistSlice";
+import { useEffect, useState } from "react";
 
 
 function ProductPage({product}: {product: Product}) {
     
     const dispatch = useAppDispatch();
-    
+    const wishlist = useAppSelector((state) => state.wishlist.content);
+
+    const [isWishlisted, setIsWishlisted] = useState(false);
+
+    function handleWishlistButton(product: Product) {
+
+        // console.log("boop");
+        // console.log(product);
+
+        console.log(wishlist);
+
+        for(let i: number = 0; i < wishlist.length; i++) {
+            // if(wishlist[i] === product) {
+            if(wishlist[i].id === product.id) {
+                console.log("Product found in wishlist\nSetting isWishlisted to false");
+                setIsWishlisted(false);
+                dispatch(removeFromWishlist(product));
+                break;
+            }
+        };
+
+        console.log("Setting isWishlisted to true");
+        if(isWishlisted == false) {
+            setIsWishlisted(true);
+            dispatch(addToWishlist(product));
+        };
+    };
+
+    useEffect(() => {
+        console.log(`Wishlist: `, wishlist);
+    });
+
+
     return(
             <Grid style={{minHeight: "80vh",display: "flex", justifyContent: "space-evenly", marginTop: "50px", marginBottom: "50px", alignItems: "center", gap: "30px"}}>
                 <Image 
@@ -43,12 +79,12 @@ function ProductPage({product}: {product: Product}) {
                     <Box style={{display: "flex", flexDirection: "column", gap: "10px"}}>
                         <Button
                         size="large"
-                        variant="outlined"
+                        variant="contained"
                         style={{ 
                             // color: "#C78283",
                             // backgroundColor: "#F2E3E3"
                         }} 
-                        color={"primary"}
+                        color="primary"
                         endIcon={<ShoppingCartIcon />}
                         onClick={() => dispatch(addToCart(product))}
                         >
@@ -56,10 +92,12 @@ function ProductPage({product}: {product: Product}) {
                         </Button>
                         <Button
                         size="large"
+                        variant="outlined"
+                        endIcon={isWishlisted ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                        onClick={() => handleWishlistButton(product=(product))}
                         >
-                            Add to WishList
+                            {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
                         </Button>
-                        {/* Makes these stretch to take up the whole area */}
                     </Box>
                     <br />
                     <Typography variant="body1" gutterBottom>{product.description}</Typography>
