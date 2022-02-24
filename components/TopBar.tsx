@@ -131,9 +131,13 @@ export default function TopBar() {
                                             aria-labelledby="composition-button"
                                             onKeyDown={handleListKeyDown}
                                         >
-                                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                            <MenuItem onClick={handleClose}>My account</MenuItem>
-                                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                            <MenuItem onClick={handleClose}>
+                                                <Link href={"/cart"}>
+                                                    <a>
+                                                        Go to Cart
+                                                    </a>
+                                                </Link>
+                                            </MenuItem>
                                         </MenuList>
                                     </ClickAwayListener>
                                 </Paper>
