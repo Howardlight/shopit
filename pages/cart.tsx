@@ -7,6 +7,9 @@ import {
     removeFromCart,
 } from "../redux/CartSlice";
 
+// Styles
+import styles from "../styles/Cart.module.css";
+
 // Components
 import Layout from "../components/Layout";
 import imageLoader from "../imageLoader";
@@ -31,14 +34,14 @@ function CartPage() {
 
     return(
         <div 
-        // className={styles.container}
+        className={styles.container}
         >
             {cart.length === 0 ? (
                 <h1>Your Cart is Empty!</h1>
             ) : (
                 <>
                     <div 
-                    // className={styles.header}
+                    className={styles.header}
                     >
                         <div>Image</div>
                         <div>Product</div>
@@ -49,10 +52,10 @@ function CartPage() {
                     </div>
                     {cart.map((item, index) => (
                         <div 
-                        // className={styles.body}
+                        className={styles.body}
                         key={index}>
                             <div 
-                            // className={styles.image}
+                            className={styles.image}
                             >
                                 <Image loader={imageLoader} unoptimized src={item.image} alt={item.title} height="90" width="65" />
                             </div>
