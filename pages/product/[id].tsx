@@ -58,11 +58,6 @@ function ProductPage({product}: {product: Product}) {
         };
     };
 
-    useEffect(() => {
-        console.log(`Wishlist: `, wishlist);
-    });
-
-
     return(
             <Grid style={{minHeight: "80vh",display: "flex", justifyContent: "space-evenly", marginTop: "50px", marginBottom: "50px", alignItems: "center", gap: "30px"}}>
                 <Image 
@@ -92,7 +87,7 @@ function ProductPage({product}: {product: Product}) {
                         </Button>
                         <Button
                         size="large"
-                        variant="outlined"
+                        variant={isWishlisted ? "contained" : "outlined"}
                         endIcon={isWishlisted ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                         onClick={() => handleWishlistButton(product=(product))}
                         >
