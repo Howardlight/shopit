@@ -118,21 +118,6 @@ ProductPage.getLayout = function getLayout(page: typeof ProductPage) {
     return <Layout>{page}</Layout>
 }
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-
-//     const {data} = await axios.get(`https://fakestoreapi.com/products/${context.query.id}`);
-//     const product: Product = data;
-
-//     return {
-//         props: {
-//             product,
-//         }
-//     }
-
-// }
-
-
-
 export async function getStaticPaths() {
 
     const {data} = await axios.get("https://fakestoreapi.com/products");
