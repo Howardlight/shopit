@@ -34,12 +34,23 @@ function ProductPage({product}: {product: Product}) {
 
     const [isWishlisted, setIsWishlisted] = useState(false);
 
+    useEffect(() => {
+
+        // console.warn("useEffect Rerendered");
+        for(let i: number = 0; i < wishlist.length; i++) {
+            if(wishlist[i].id === product.id) {
+                setIsWishlisted(true);
+            };
+        };
+    }, []);
+
+
     function handleWishlistButton(product: Product) {
 
         // console.log("boop");
         // console.log(product);
 
-        console.log(wishlist);
+        console.log("HandleWishlist Button rendered");
 
         for(let i: number = 0; i < wishlist.length; i++) {
             // if(wishlist[i] === product) {
