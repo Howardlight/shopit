@@ -25,7 +25,7 @@ import { useRouter } from "next/router";
 
 
 //TODO: Implement Cart System
-export default function TopBar() {
+export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>} ) {
 
     const router = useRouter();
 
@@ -114,7 +114,10 @@ export default function TopBar() {
         // same case as ShoppingCartButton
 
         return (
-            <Button endIcon={<WishlistIcon />}>
+            <Button
+            endIcon={<WishlistIcon />}
+            onClick={() => setIsDrawerOpen(true)}
+            >
                 Wishlist
             </Button>
         );
