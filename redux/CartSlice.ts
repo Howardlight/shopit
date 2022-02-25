@@ -22,12 +22,12 @@ const cartSlice = createSlice({
             // if it exists, increase its quantity
             if (itemExists) {
                 itemExists.quantity!++; // NOTE: ! Assertion here
-                console.log(`addToCart increased Quantity \n-  item: ${itemExists.title} \n-  quantity: ${itemExists.quantity}`)
+                // console.log(`addToCart increased Quantity \n-  item: ${itemExists.title} \n-  quantity: ${itemExists.quantity}`)
 
                 // If it doesn't exist, add it to state
             } else {
                 state.content.push({ ...action.payload, quantity: 1 });
-                console.log(`addToCart added Item \n-  item: ${action.payload.title} \n-  quantity: ${action.payload.quantity}`)
+                // console.log(`addToCart added Item \n-  item: ${action.payload.title} \n-  quantity: ${action.payload.quantity}`)
             }
         },
         incrementQuantity: (state, action) => {
@@ -44,7 +44,7 @@ const cartSlice = createSlice({
                 // Increase quantity 
                 else {
                     item.quantity++;
-                    console.log(`incrementQuantity increased Quantity \n-  item: ${item.title} \n-  quantity: ${item.quantity}`)
+                    // console.log(`incrementQuantity increased Quantity \n-  item: ${item.title} \n-  quantity: ${item.quantity}`)
                 }
             };
         },
@@ -60,7 +60,7 @@ const cartSlice = createSlice({
 
                 // If quantity is 1, remove it from state
                 if (item.quantity === 1) {
-                    console.log(`decrementQuantity item quantity was 1 -  removing item: ${item.title}`)
+                    // console.log(`decrementQuantity item quantity was 1 -  removing item: ${item.title}`)
 
                     const index = state.content.findIndex((item) => item.id === action.payload);
                     state.content.splice(index, 1);
@@ -75,7 +75,7 @@ const cartSlice = createSlice({
                     else {
                         // decrease quantity
                         item.quantity--;
-                        console.log(`decrementQuantity decreased Quantity \n-  item: ${item} \n-  quantity: ${item.quantity}`)
+                        // console.log(`decrementQuantity decreased Quantity \n-  item: ${item} \n-  quantity: ${item.quantity}`)
                     }
                 };
             };
@@ -84,7 +84,7 @@ const cartSlice = createSlice({
             // find item
             const index = state.content.findIndex((item) => item.id === action.payload);
 
-            console.log(`removeFromCart removing item: ${index}`);
+            // console.log(`removeFromCart removing item: ${index}`);
 
             // remove item from state
             state.content.splice(index, 1);
