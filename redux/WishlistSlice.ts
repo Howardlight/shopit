@@ -19,13 +19,13 @@ const wishlistSlice = createSlice ({
             // const itemExists = state.content.find((item: Product) => item.id === action.payload.id);
 
             state.content.push({ ...action.payload });
-            console.log(`addToWishlist added Item \n-  item: ${action.payload.title}`)
+            // console.log(`addToWishlist added Item \n-  item: ${action.payload.title}`)
         },
         removeFromWishlist:(state, action) => {
             // find item
             const index = state.content.findIndex((item) => item.id === action.payload);
 
-            console.log(`removeFromWishlist removing item: ${index}`);
+            // console.log(`removeFromWishlist removing item: ${index}`);
 
             // remove item from state
             state.content.splice(index, 1);
