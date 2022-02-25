@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import TopBar from "./TopBar";
 import Footer from "./Footer";
+import WishlistDrawer from "./WishlistDrawer";
+
 
 function Layout({children}: {children: React.ReactNode}) {
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
     return(
         <div>
-            <TopBar />
+            <TopBar setIsDrawerOpen={setIsDrawerOpen}/>
             {children}
+            <WishlistDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen}/>
             <Footer />
         </div>
     );
