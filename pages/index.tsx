@@ -43,8 +43,6 @@ import Layout from '../components/Layout';
 
 //TODO: Add a footer
 //TODO: branch different components into their own file
-//TODO: add Pages to each item
-//TODO: add a cart system
 //TODO: Improve the ProductCard
 //TODO: add category based searches
 
