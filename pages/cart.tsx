@@ -78,10 +78,10 @@ function CartPage() {
                                     <DeleteIcon />
                                 </IconButton>
                             </ButtonGroup>
-                            <Typography variant="subtitle2">$ {item.quantity! * item.price}</Typography>
+                            <Typography variant="subtitle2">$ {Math.round( (item.quantity! * item.price) * 100) / 100}</Typography>
                         </div>
                     ))}
-                    <h2>Grand Total: $ {getTotalPrice()}</h2>
+                    <h2>Grand Total: $ {Math.round(getTotalPrice() * 100 ) / 100}</h2>
                 </>
             )}
         </Container>
