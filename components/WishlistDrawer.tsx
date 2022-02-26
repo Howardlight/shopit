@@ -35,7 +35,7 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
         >
             {wishlist.map((product, index) => {
                 return (
-                    <>
+                    <div key={index}>
                         <Box key={index} style={{ display: "flex", justifyContent: "center", flexDirection: "row", maxWidth: "300px", padding: "3px" }}>
                             <Image loader={imageLoader} alt={product.title} src={product.image} unoptimized height="128" width="128" />
                             <Container>
@@ -47,7 +47,7 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
                             </Container>
                         </Box>
                         <Divider />
-                    </>
+                    </div>
                 );
             })}
         </Drawer>
