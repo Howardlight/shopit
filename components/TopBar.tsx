@@ -24,7 +24,6 @@ import { useCallback } from "react";
 import { useRouter } from "next/router";
 
 
-//TODO: Implement Cart System
 export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>} ) {
 
     const router = useRouter();
@@ -125,7 +124,7 @@ export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispat
     const ShoppingCartButton = () => {
 
         // console.log("ShoppingCartButton Rerender");
-        //TODO: Button re-renders each time an item is added, Fix this\
+        //TODO: Button re-renders each time an item is added, Fix this
         // make it so only the badge re-renders
         //NOTE: It also re-renders when a wishlist item is added
 
