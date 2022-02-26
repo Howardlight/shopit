@@ -28,14 +28,13 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
     const dispatch = useAppDispatch();
     const wishlist = useAppSelector((state) => state.wishlist.content);
 
-
     return (
         <Drawer
             anchor={"right"}
             open={isDrawerOpen}
             onClose={() => setIsDrawerOpen(false)}
         >
-            {wishlist.map((product, index) => {
+            {wishlist.length == 0 ? <Typography variant="subtitle1">Your wishlist is empty</Typography> : wishlist.map((product, index) => {
                 return (
                     <div key={index}>
                         <Box key={index} style={{ display: "flex", justifyContent: "center", flexDirection: "row", maxWidth: "300px", padding: "3px" }}>
