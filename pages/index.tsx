@@ -29,6 +29,7 @@ import {
   CardActions
 } from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import StarIcon from '@mui/icons-material/Star';
 
 //Redux
 import { addToCart } from '../redux/CartSlice';
@@ -83,6 +84,7 @@ const ProductCard = ( props: {product: Product}) => {
     <Card
       variant="outlined"
       key={props.product.id}
+      style={{minHeight: "300px"}}
     >
       <Link href={`/product/${props.product.id}`}>
         <a>
@@ -100,7 +102,13 @@ const ProductCard = ( props: {product: Product}) => {
           </Paper>
           <CardContent>
             <Typography gutterBottom variant="h6">{props.product.title}</Typography>
-            <Typography color="text.secondary" >{props.product.price}$</Typography>
+            <Box style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+              <Typography color="text.secondary" fontSize={"small"}>{props.product.price}$</Typography>
+              <div style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
+                <Typography color="text.secondary" fontSize={"small"} style={{marginRight: "2px"}}>{props.product.rating.rate}</Typography>
+                <StarIcon fontSize='medium' style={{color: "#FF9529"}} />
+              </div>
+            </Box>
           </CardContent>
         </CardActionArea>
         </a>
