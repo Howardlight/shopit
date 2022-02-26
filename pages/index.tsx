@@ -128,21 +128,6 @@ const ProductCard = ( props: {product: Product}) => {
 }
 
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-
-//   const {data} = await axios.get(`https://fakestoreapi.com/products/`);
-//   const productTable: Product[] = data;
-//   // console.log(productTable);
-
-//   return {
-//       props: {
-//           productTable,
-//       }
-//   }
-
-// }
-
-
 export const getStaticProps: GetStaticProps = async () => {
   
   const {data} = await axios.get("https://fakestoreapi.com/products");
