@@ -15,6 +15,8 @@ import {
 import Divider from "@mui/material/Divider";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { removeFromWishlist } from '../redux/WishlistSlice';
+
 
 import Image from "next/image";
 import imageLoader from "../imageLoader";
@@ -42,7 +44,11 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
                                 <Typography variant="subtitle1">{product.title}</Typography>
                                 <Box style={{ display: "flex", justifyContent: "space-evenly", flexDirection: "row", alignItems: "center" }}>
                                     <Typography variant="subtitle2">{product.category}</Typography>
-                                    <IconButton><DeleteIcon /></IconButton>
+                                    <IconButton
+                                        onClick={() => dispatch(removeFromWishlist(product))}
+                                    >
+                                        <DeleteIcon color="error" />
+                                    </IconButton>
                                 </Box>
                             </Container>
                         </Box>
