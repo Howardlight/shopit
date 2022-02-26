@@ -35,37 +35,30 @@ function ProductPage({product}: {product: Product}) {
     const [isWishlisted, setIsWishlisted] = useState(false);
 
     useEffect(() => {
-
         // console.warn("useEffect Rerendered");
-        for(let i: number = 0; i < wishlist.length; i++) {
-            if(wishlist[i].id === product.id) {
-                setIsWishlisted(true);
-            };
-        };
-    }, []);
-
-
-    function handleWishlistButton(product: Product) {
-
-        // console.log("boop");
-        // console.log(product);
-
-        console.log("HandleWishlist Button rendered");
-
-        for(let i: number = 0; i < wishlist.length; i++) {
+        
+        let foundInWishlist: boolean = false;
+        for (let i: number = 0; i < wishlist.length; i++) {
             // if(wishlist[i] === product) {
-            if(wishlist[i].id === product.id) {
-                console.log("Product found in wishlist\nSetting isWishlisted to false");
-                setIsWishlisted(false);
-                dispatch(removeFromWishlist(product));
+            if (wishlist[i].id === product.id) {
+                // console.log("Product found in wishlist\nSetting isWishlisted to false");
+                setIsWishlisted(true);
+                foundInWishlist = true;
+                // dispatch(removeFromWishlist(product));
                 break;
             }
         };
+        if (foundInWishlist == false) setIsWishlisted(false);
+    }, [isWishlisted, wishlist]);
 
-        console.log("Setting isWishlisted to true");
-        if(isWishlisted == false) {
-            setIsWishlisted(true);
+
+    function handleWishlistButton(product: Product) {
+        // console.log("HandleWishlist Button rendered");
+
+        if(isWishlisted) dispatch(removeFromWishlist(product));
+        else if(!isWishlisted) {
             dispatch(addToWishlist(product));
+            setIsWishlisted(true);
         };
     };
 
