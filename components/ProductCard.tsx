@@ -19,11 +19,14 @@ import {
     Box,
     CardActionArea,
     Button,
-    CardActions
+    CardActions,
+    IconButton
 } from "@mui/material";
+
+// MATERIAL UI ICONS
 import StarIcon from '@mui/icons-material/Star';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import Favorite from "@mui/icons-material/Favorite";
 
 export default function ProductCard(props: { product: Product }) {
 
@@ -32,6 +35,8 @@ export default function ProductCard(props: { product: Product }) {
 
     // TODO: at AddToCart Button, Add a notification for when the user clicks the button
     // example: Item Added to your cart!
+    
+    // TODO: Add functionality to wishlist Icon Button
     return (
         <Card
             variant="outlined"
@@ -42,7 +47,7 @@ export default function ProductCard(props: { product: Product }) {
                 <a>
                     <CardActionArea>
 
-                        <Paper style={{ display: "flex", justifyContent: "center", margin: "25px" }} elevation={0}>
+                        <Paper style={{ display: "flex", justifyContent: "center", margin: "15px" }} elevation={0}>
                             <Image
                                 src={props.product.image}
                                 alt={props.product.title}
@@ -65,15 +70,17 @@ export default function ProductCard(props: { product: Product }) {
                     </CardActionArea>
                 </a>
             </Link>
-            <CardActions>
+            <CardActions style={{display: "flex", justifyContent: "space-between"}}>
                 <Button
                     size="small"
-                    style={{ color: "#C78283", backgroundColor: "#F2E3E3" }}
+                    color="primary"
+                    variant="outlined"
                     endIcon={<ShoppingCartIcon />}
                     onClick={() => dispatch(addToCart(props.product))}
                 >
                     Add to Cart
                 </Button>
+                <IconButton color="primary"><Favorite /></IconButton>
             </CardActions>
         </Card>
     );
