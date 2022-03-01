@@ -20,7 +20,9 @@ import {
     CardActionArea,
     Button,
     CardActions,
-    IconButton
+    IconButton,
+    Snackbar,
+    Alert
 } from "@mui/material";
 
 // MATERIAL UI ICONS
@@ -33,6 +35,45 @@ export default function ProductCard(props: { product: Product }) {
     const dispatch = useAppDispatch();
 
 
+
+    const [openCart, setOpenCart] = useState(false);
+    const [openWishList, setOpenWishlist] = useState(false);
+    function AddToCartButton() {
+        
+        const handleClick = () => {
+            setOpenCart(true);
+
+            dispatch(addToCart(props.product));
+        };
+        
+        const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+    
+            setOpenCart(false);
+        };
+
+
+        return (
+            <>
+                <Button
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                    endIcon={<ShoppingCartIcon />}
+                    onClick={handleClick}
+                >
+                    Add to Cart
+                </Button>
+                <Snackbar open={openCart} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                        Item Added to Cart!
+                    </Alert>
+                </Snackbar>
+            </>
+        );
+    }
     // TODO: at AddToCart Button, Add a notification for when the user clicks the button
     // example: Item Added to your cart!
     
@@ -71,7 +112,7 @@ export default function ProductCard(props: { product: Product }) {
                 </a>
             </Link>
             <CardActions style={{display: "flex", justifyContent: "space-between"}}>
-                <Button
+                {/* <Button
                     size="small"
                     color="primary"
                     variant="outlined"
@@ -79,8 +120,9 @@ export default function ProductCard(props: { product: Product }) {
                     onClick={() => dispatch(addToCart(props.product))}
                 >
                     Add to Cart
-                </Button>
-                <IconButton color="primary"><Favorite /></IconButton>
+                </Button> */}
+                <AddToCartButton />
+                {/* <IconButton color="primary"><Favorite /></IconButton> */}
             </CardActions>
         </Card>
     );
