@@ -60,7 +60,6 @@ export default function ProductCard(props: { product: Product }) {
     }
 
 
-    //TODO: use PURECOMPONENTS, THIS IS WAY TOO INEFFICIENT
     function AddWishlistButton() {
 
         const handleAddtoWishlistClick = () => {

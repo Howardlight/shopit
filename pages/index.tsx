@@ -1,3 +1,6 @@
+
+import * as React from "react";
+
 // NEXT INTERFACES
 import type {
   GetStaticProps,
@@ -5,51 +8,21 @@ import type {
   // GetServerSideProps 
 } from 'next'
 
-
-
 // NEXT
 // import Head from 'next/head';
 // import Image from 'next/image';
 // import Link from 'next/link';
 
-
-// import styles from '../styles/Home.module.css'
 const axios = require('axios').default;
-import * as React from "react";
-import { 
-  // getProductResults,
-  Product 
-} from '../utils/types';
-import {
-  // Card, 
-  // CardContent, 
-  // CardMedia, 
-  // Typography,
-  // Container,
-  Grid,
-  // Box,
-  // Paper,
-  // AppBar,
-  // Toolbar,
-  // IconButton,
-  // Button,
-  // CardActionArea,
-  // CardActions
-} from "@mui/material";
-import StarIcon from '@mui/icons-material/Star';
-
-//Redux
-// import { addToCart } from '../redux/CartSlice';
-// import { useAppSelector, useAppDispatch} from "../redux/hooks";
+import { Product } from '../utils/types';
+import { Grid } from "@mui/material";
 
 // Components
-// import imageLoader from '../imageLoader';
 import Layout from '../components/Layout';
 import ProductCard from "../components/ProductCard";
 
 
 //TODO: add category based searches
-
 function Home({ productTable }: { productTable: Product[] }) {
 
   return (
@@ -81,7 +54,6 @@ export const getStaticProps: GetStaticProps = async () => {
   
   const {data} = await axios.get("https://fakestoreapi.com/products");
   const table: Product[] = data;
-  // console.log(table);
 
   return {
     props: {
