@@ -1,0 +1,24 @@
+
+.imagePaper {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+
+.cardContentBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ratingDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.buttonsBox {
+    display: flex;
+    justify-content: space-between;
+}

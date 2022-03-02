@@ -32,6 +32,8 @@ import Favorite from "@mui/icons-material/Favorite";
 import { addToWishlist, removeFromWishlist } from "../redux/WishlistSlice";
 import { checkIfInWishlist } from "../utils/WishlistUtils";
 
+import styles from "../styles/ProductCard.module.css";
+
 
 export default function ProductCard(props: { product: Product }) {
 
@@ -88,7 +90,7 @@ export default function ProductCard(props: { product: Product }) {
                 <a>
                     <CardActionArea>
 
-                        <Paper style={{ display: "flex", justifyContent: "center", margin: "15px" }} elevation={0}>
+                        <Paper className={styles.imagePaper} elevation={0}>
                             <Image
                                 src={props.product.image}
                                 alt={props.product.title}
@@ -100,18 +102,18 @@ export default function ProductCard(props: { product: Product }) {
                         </Paper>
                         <CardContent>
                             <Typography gutterBottom variant="h6">{props.product.title}</Typography>
-                            <Box style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
+                            <Box className={[styles.cardContentBox].join(" ")}>
                                 <Typography color="text.secondary" fontSize={"small"}>{props.product.price}$</Typography>
-                                <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                <Box className={[styles.ratingDiv].join(" ")}>
                                     <Typography color="text.secondary" fontSize={"small"} style={{ marginRight: "2px" }}>{props.product.rating.rate}</Typography>
                                     <StarIcon fontSize='medium' style={{ color: "#FF9529" }} />
-                                </div>
+                                </Box>
                             </Box>
                         </CardContent>
                     </CardActionArea>
                 </a>
             </Link>
-            <CardActions style={{display: "flex", justifyContent: "space-between"}}>
+            <CardActions className={[styles.buttonsBox].join(" ")}>
                 <AddToCartButton />
                 <AddWishlistButton />
             </CardActions>
