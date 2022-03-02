@@ -47,13 +47,13 @@ export default function ProductCard(props: { product: Product }) {
     const [openWishList, setOpenWishlist] = useState(false);
     function AddToCartButton() {
         
-        const handleClick = () => {
+        const handleADdToCartClick = () => {
             setOpenCart(true);
 
             dispatch(addToCart(props.product));
         };
         
-        const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        const handleAddToCartClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
             if (reason === 'clickaway') {
                 return;
             }
@@ -69,12 +69,12 @@ export default function ProductCard(props: { product: Product }) {
                     color="primary"
                     variant="outlined"
                     endIcon={<ShoppingCartIcon />}
-                    onClick={handleClick}
+                    onClick={handleADdToCartClick}
                 >
                     Add to Cart
                 </Button>
-                <Snackbar open={openCart} autoHideDuration={6000} onClose={handleClose}>
-                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                <Snackbar open={openCart} autoHideDuration={6000} onClose={handleAddToCartClose}>
+                    <Alert onClose={handleAddToCartClose} severity="success" sx={{ width: '100%' }}>
                         Item Added to Cart!
                     </Alert>
                 </Snackbar>
