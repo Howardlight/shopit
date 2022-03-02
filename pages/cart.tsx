@@ -64,7 +64,7 @@ function CartPage() {
                             <Typography variant="subtitle2">{item.title}</Typography>
                             <Typography>$ {item.price}</Typography >
                             <Typography >{item.quantity}</Typography >
-                            <ButtonGroup style={{display: "flex", justifyContent: "space-evenly"}}>
+                            <ButtonGroup className={styles.mainButtonGroup}>
                                 <IconButton color="primary" onClick={() => dispatch(incrementQuantity(item.id))}>
                                     <AddIcon />
                                 </IconButton>
