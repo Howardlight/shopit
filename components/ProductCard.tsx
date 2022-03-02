@@ -3,6 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import imageLoader from "../imageLoader";
 
+import React, {
+    useState
+} from "react";
+
 // TYPESCRIPT INTERFACES
 import { Product } from "../types";
 
@@ -29,11 +33,14 @@ import {
 import StarIcon from '@mui/icons-material/Star';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Favorite from "@mui/icons-material/Favorite";
+import { addToWishlist, removeFromWishlist } from "../redux/WishlistSlice";
+import { checkIfInWishlist } from "../utils/WishlistUtils";
+
 
 export default function ProductCard(props: { product: Product }) {
 
     const dispatch = useAppDispatch();
-
+    const wishlist = useAppSelector((state) => state.wishlist.content);
 
 
     const [openCart, setOpenCart] = useState(false);
@@ -74,6 +81,47 @@ export default function ProductCard(props: { product: Product }) {
             </>
         );
     }
+
+    function AddWishlistButton() {
+        
+        const handleAddtoWishlistClick = () => {
+            setOpenWishlist(true);
+
+
+            if(checkIfInWishlist(props.product, wishlist)) dispatch(removeFromWishlist(props.product));
+            else dispatch(addToWishlist(props.product));
+        };
+        
+        const handleAddtoWishlistClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+    
+            setOpenWishlist(false);
+        };
+
+        //TODO: change snackbar to handle if item is removed from wishlist
+        return (
+            <>
+                <IconButton 
+                color="primary"
+                onClick={handleAddtoWishlistClick}
+                >
+                    <Favorite />
+                </IconButton>
+                <Snackbar open={openWishList} autoHideDuration={6000} onClose={handleAddtoWishlistClose}>
+                    <Alert onClose={handleAddtoWishlistClose} severity="success" sx={{ width: '100%' }}>
+                        Item Added to Wishlist!
+                    </Alert>
+                </Snackbar>
+            </>
+        );
+    }
+
+
+
+
+
     // TODO: at AddToCart Button, Add a notification for when the user clicks the button
     // example: Item Added to your cart!
     
@@ -123,6 +171,7 @@ export default function ProductCard(props: { product: Product }) {
                 </Button> */}
                 <AddToCartButton />
                 {/* <IconButton color="primary"><Favorite /></IconButton> */}
+                <AddWishlistButton />
             </CardActions>
         </Card>
     );
