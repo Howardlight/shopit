@@ -44,9 +44,6 @@ function CartPage() {
         );
     };
 
-    // TODO: Round the Total of all items
-    // Would look Nicer
-    
     return(
         <Container
         className={styles.container}
