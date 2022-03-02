@@ -3,10 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import imageLoader from "../imageLoader";
 
-import React, {
-    useState
-} from "react";
-
 // TYPESCRIPT INTERFACES
 import { Product } from "../utils/types";
 
@@ -25,14 +21,14 @@ import {
     Button,
     CardActions,
     IconButton,
-    Snackbar,
-    Alert
 } from "@mui/material";
 
 // MATERIAL UI ICONS
 import StarIcon from '@mui/icons-material/Star';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Favorite from "@mui/icons-material/Favorite";
+
+
 import { addToWishlist, removeFromWishlist } from "../redux/WishlistSlice";
 import { checkIfInWishlist } from "../utils/WishlistUtils";
 
@@ -43,89 +39,46 @@ export default function ProductCard(props: { product: Product }) {
     const wishlist = useAppSelector((state) => state.wishlist.content);
 
 
-    const [openCart, setOpenCart] = useState(false);
-    const [openWishList, setOpenWishlist] = useState(false);
     function AddToCartButton() {
-        
-        const handleADdToCartClick = () => {
-            setOpenCart(true);
 
+        const handleAddToCartClick = () => {
             dispatch(addToCart(props.product));
-        };
-        
-        const handleAddToCartClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-            if (reason === 'clickaway') {
-                return;
-            }
-    
-            setOpenCart(false);
         };
 
 
         return (
-            <>
-                <Button
-                    size="small"
-                    color="primary"
-                    variant="outlined"
-                    endIcon={<ShoppingCartIcon />}
-                    onClick={handleADdToCartClick}
-                >
-                    Add to Cart
-                </Button>
-                <Snackbar open={openCart} autoHideDuration={6000} onClose={handleAddToCartClose}>
-                    <Alert onClose={handleAddToCartClose} severity="success" sx={{ width: '100%' }}>
-                        Item Added to Cart!
-                    </Alert>
-                </Snackbar>
-            </>
+            <Button
+                size="small"
+                color="primary"
+                variant="outlined"
+                endIcon={<ShoppingCartIcon />}
+                onClick={handleAddToCartClick}
+            >
+                Add to Cart
+            </Button>
         );
     }
 
+
+    //TODO: use PURECOMPONENTS, THIS IS WAY TOO INEFFICIENT
     function AddWishlistButton() {
-        
+
         const handleAddtoWishlistClick = () => {
-            setOpenWishlist(true);
-
-
             if(checkIfInWishlist(props.product, wishlist)) dispatch(removeFromWishlist(props.product));
             else dispatch(addToWishlist(props.product));
         };
-        
-        const handleAddtoWishlistClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-            if (reason === 'clickaway') {
-                return;
-            }
-    
-            setOpenWishlist(false);
-        };
 
-        //TODO: change snackbar to handle if item is removed from wishlist
         return (
-            <>
-                <IconButton 
+            <IconButton
                 color="primary"
                 onClick={handleAddtoWishlistClick}
-                >
-                    <Favorite />
-                </IconButton>
-                <Snackbar open={openWishList} autoHideDuration={6000} onClose={handleAddtoWishlistClose}>
-                    <Alert onClose={handleAddtoWishlistClose} severity="success" sx={{ width: '100%' }}>
-                        Item Added to Wishlist!
-                    </Alert>
-                </Snackbar>
-            </>
+            >
+                <Favorite />
+            </IconButton>
         );
-    }
+    };
 
 
-
-
-
-    // TODO: at AddToCart Button, Add a notification for when the user clicks the button
-    // example: Item Added to your cart!
-    
-    // TODO: Add functionality to wishlist Icon Button
     return (
         <Card
             variant="outlined"
@@ -160,17 +113,7 @@ export default function ProductCard(props: { product: Product }) {
                 </a>
             </Link>
             <CardActions style={{display: "flex", justifyContent: "space-between"}}>
-                {/* <Button
-                    size="small"
-                    color="primary"
-                    variant="outlined"
-                    endIcon={<ShoppingCartIcon />}
-                    onClick={() => dispatch(addToCart(props.product))}
-                >
-                    Add to Cart
-                </Button> */}
                 <AddToCartButton />
-                {/* <IconButton color="primary"><Favorite /></IconButton> */}
                 <AddWishlistButton />
             </CardActions>
         </Card>
