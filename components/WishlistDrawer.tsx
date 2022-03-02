@@ -22,11 +22,24 @@ import Image from "next/image";
 import imageLoader from "../imageLoader";
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import Favorite from '@mui/icons-material/Favorite';
 
 export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawerOpen: boolean, setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
 
     const dispatch = useAppDispatch();
     const wishlist = useAppSelector((state) => state.wishlist.content);
+
+    function EmptyWishlist() {
+        return(
+            <Box style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}}>
+                <Favorite sx={{fontSize: 80}} style={{opacity: "0.3"}}/>
+                <Typography variant="subtitle1">Your wishlist is empty</Typography>
+                {/* <Typography variant="subtitle2">Try adding something to your wishlist</Typography> */}
+            </Box>
+        );
+    }
+
+
 
     return (
         <Drawer
@@ -34,7 +47,7 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
             open={isDrawerOpen}
             onClose={() => setIsDrawerOpen(false)}
         >
-            {wishlist.length == 0 ? <Typography variant="subtitle1">Your wishlist is empty</Typography> : wishlist.map((product, index) => {
+            {wishlist.length == 0 ? <EmptyWishlist /> : wishlist.map((product, index) => {
                 return (
                     <div key={index}>
                         <Box key={index} style={{ display: "flex", justifyContent: "center", flexDirection: "row", maxWidth: "300px", padding: "3px" }}>
