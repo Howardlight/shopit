@@ -8,7 +8,7 @@ import React, {
 } from "react";
 
 // TYPESCRIPT INTERFACES
-import { Product } from "../types";
+import { Product } from "../utils/types";
 
 // REDUX TOOLKIT
 import { useAppSelector, useAppDispatch} from "../redux/hooks";

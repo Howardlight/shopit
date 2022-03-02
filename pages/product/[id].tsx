@@ -1,5 +1,5 @@
 import imageLoader from "../../imageLoader";
-import { Product } from "../../types";
+import { Product } from "../../utils/types";
 import Image from "next/image";
 import axios from "axios";
 
@@ -13,7 +13,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Category, Rating } from "../../types";
+import { Category, Rating } from "../../utils/types";
 
 //Components
 // import TopBar from "../../components/TopBar";

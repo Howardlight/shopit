@@ -9,13 +9,12 @@ import {
     useAppSelector
 } from "../redux/hooks";
 
-import { Product } from "../types";
+import { Product } from "./types";
 
 /**
  * Checks if passed Product is inside of wishlist State
  * 
  * if Product is inside wishlist, returns TRUE
- * 
  * else returns FALSE
  * @param product 
  * @param wishlist 

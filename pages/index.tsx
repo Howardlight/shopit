@@ -19,7 +19,7 @@ import * as React from "react";
 import { 
   // getProductResults,
   Product 
-} from '../types';
+} from '../utils/types';
 import {
   // Card, 
   // CardContent, 
