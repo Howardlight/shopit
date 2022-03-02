@@ -6,26 +6,27 @@ import axios from "axios";
 import { 
     Grid,
     Typography,
-    Container,
+    // Container,
     Button,
     Box,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// import { Category, Rating } from "../../utils/types";
 
 //Components
-// import TopBar from "../../components/TopBar";
-// import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 
 // Redux
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addToCart } from "../../redux/CartSlice";
 import { addToWishlist, removeFromWishlist } from "../../redux/WishlistSlice";
+
+// React, Utils
 import { useEffect, useState } from "react";
 import { checkIfInWishlist } from "../../utils/WishlistUtils";
+
+import styles from "../../styles/[id].module.css";
 
 function ProductPage({product}: {product: Product}) {
     
@@ -54,7 +55,7 @@ function ProductPage({product}: {product: Product}) {
     };
 
     return(
-            <Grid style={{minHeight: "80vh",display: "flex", justifyContent: "space-evenly", marginTop: "50px", marginBottom: "50px", alignItems: "center", gap: "30px"}}>
+            <Grid className={styles.mainGrid}>
                 <Image 
                 src={product.image} 
                 alt={product.title} 
@@ -63,17 +64,13 @@ function ProductPage({product}: {product: Product}) {
                 height={"350"} 
                 width={"300"}
                 />
-                <Grid style={{padding: "1rem", maxWidth:"500px"}}>
+                <Grid className={styles.contentGrid}>
                     <Typography variant="h5">{product.title}</Typography>
-                    <Typography variant="h6" style={{display: "flex", justifyContent: "flex-start", padding: "1rem"}}>{product.price}$</Typography>
-                    <Box style={{display: "flex", flexDirection: "column", gap: "10px"}}>
+                    <Typography variant="h6" className={styles.price}>{product.price}$</Typography>
+                    <Box className={styles.buttonBox}>
                         <Button
                         size="large"
                         variant="contained"
-                        style={{ 
-                            // color: "#C78283",
-                            // backgroundColor: "#F2E3E3"
-                        }} 
                         color="primary"
                         endIcon={<ShoppingCartIcon />}
                         onClick={() => dispatch(addToCart(product))}
@@ -92,11 +89,9 @@ function ProductPage({product}: {product: Product}) {
                     <br />
                     <Typography variant="body1" gutterBottom>{product.description}</Typography>
                 </Grid>
-
-
             </Grid>
     );
-}
+};
 
 ProductPage.getLayout = function getLayout(page: typeof ProductPage) {
     return <Layout>{page}</Layout>
