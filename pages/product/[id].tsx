@@ -13,11 +13,11 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Category, Rating } from "../../utils/types";
+// import { Category, Rating } from "../../utils/types";
 
 //Components
 // import TopBar from "../../components/TopBar";
-import { GetServerSideProps } from "next";
+// import { GetServerSideProps } from "next";
 import Layout from "../../components/Layout";
 
 // Redux
@@ -25,7 +25,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { addToCart } from "../../redux/CartSlice";
 import { addToWishlist, removeFromWishlist } from "../../redux/WishlistSlice";
 import { useEffect, useState } from "react";
-
+import { checkIfInWishlist } from "../../utils/WishlistUtils";
 
 function ProductPage({product}: {product: Product}) {
     
@@ -36,20 +36,11 @@ function ProductPage({product}: {product: Product}) {
 
     useEffect(() => {
         // console.warn("useEffect Rerendered");
-        
-        let foundInWishlist: boolean = false;
-        for (let i: number = 0; i < wishlist.length; i++) {
-            // if(wishlist[i] === product) {
-            if (wishlist[i].id === product.id) {
-                // console.log("Product found in wishlist\nSetting isWishlisted to false");
-                setIsWishlisted(true);
-                foundInWishlist = true;
-                // dispatch(removeFromWishlist(product));
-                break;
-            }
-        };
-        if (foundInWishlist == false) setIsWishlisted(false);
-    }, [isWishlisted, wishlist]);
+
+        if(checkIfInWishlist(product, wishlist) == true) setIsWishlisted(true);
+        else setIsWishlisted(false);
+
+    }, [isWishlisted, wishlist, product]);
 
 
     function handleWishlistButton(product: Product) {
