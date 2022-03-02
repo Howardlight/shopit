@@ -48,9 +48,6 @@ import Layout from '../components/Layout';
 import ProductCard from "../components/ProductCard";
 
 
-//TODO: Add a footer
-//TODO: branch different components into their own file
-//TODO: Improve the ProductCard
 //TODO: add category based searches
 
 function Home({ productTable }: { productTable: Product[] }) {
