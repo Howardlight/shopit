@@ -21,14 +21,14 @@ import { Grid } from "@mui/material";
 import Layout from '../components/Layout';
 import ProductCard from "../components/ProductCard";
 
+import styles from "../styles/Home.module.css";
 
 //TODO: add category based searches
 function Home({ productTable }: { productTable: Product[] }) {
 
   return (
     <Grid>
-
-      <Grid style={{ display: "flex", justifyContent: "space-evenly", flexDirection: "row", flexWrap: "wrap", margin: "25px" }}>
+      <Grid className={styles.mainGrid}>
         {productTable.map((product) => {
           return (
             <Grid item xs={8} md={4} key={product.id} style={{ padding: "25px" }}>
@@ -47,7 +47,7 @@ function Home({ productTable }: { productTable: Product[] }) {
 
 Home.getLayout = function getLayout(page: typeof Home) {
   return <Layout>{page}</Layout>
-}
+};
 
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -60,7 +60,7 @@ export const getStaticProps: GetStaticProps = async () => {
       productTable: 
       table,
     }
-  }
+  };
 };
 
 
