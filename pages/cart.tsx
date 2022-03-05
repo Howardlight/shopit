@@ -11,7 +11,8 @@ import {
     IconButton,
     ButtonGroup,
     Container,
-    Typography
+    Typography,
+    Box
 } from "@mui/material";
 
 
@@ -49,7 +50,15 @@ function CartPage() {
         className={styles.container}
         >
             {cart.length === 0 ? (
-                <Typography variant="h3">Your Cart is Empty!</Typography>
+                <Box style={{minHeight: "500px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
+                <Typography variant="h3" color="primary">
+                    Your Cart is Empty!
+                </Typography>
+                <br />
+                <Typography variant="h6" color="secondary">
+                    Click `add to cart` to add an item to your cart
+                </Typography>
+                </Box>
             ) : (
                 <>
                     {cart.map((item, index) => (
