@@ -31,7 +31,7 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
 
     function EmptyWishlist() {
         return(
-            <Box style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center"}}>
+            <Box style={{display: "flex", justifyContent: "center", flexDirection: "column", alignItems: "center", padding: "15px"}}>
                 <Favorite sx={{fontSize: 80}} style={{opacity: "0.3"}}/>
                 <Typography variant="subtitle1">Your wishlist is empty</Typography>
                 {/* <Typography variant="subtitle2">Try adding something to your wishlist</Typography> */}
