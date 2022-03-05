@@ -54,7 +54,7 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
                             <Image loader={imageLoader} alt={product.title} src={product.image} unoptimized height="128" width="128" />
                             <Container>
                                 <Typography variant="subtitle1">{product.title}</Typography>
-                                <Box style={{ display: "flex", justifyContent: "space-evenly", flexDirection: "row", alignItems: "center" }}>
+                                <Box style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center" }}>
                                     <Typography variant="subtitle2">{product.category}</Typography>
                                     <IconButton
                                         onClick={() => dispatch(removeFromWishlist(product))}
