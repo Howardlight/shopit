@@ -23,6 +23,7 @@ import { useAppSelector } from "../redux/hooks";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
 
+import styles from "../styles/TopBar.module.css";
 
 export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>} ) {
 
@@ -189,7 +190,13 @@ export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispat
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" style={{backgroundColor: "#F3D9DC", color: "#C78283"}}>
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                    <Typography 
+                        variant="h6"
+                        component="div"
+                        color="inherit"
+                        sx={{ flexGrow: 1 }} 
+                        className={styles.shopItHomeScreen}
+                    >
                         <Link href="/">
                             <a>
                                 ShopIt

@@ -1,0 +1,12 @@
+.shopItHomeScreen :hover {
+    opacity: 0.5;
+    transition: 0.3s;
+}
+
+.shopItHomeScreen{
+    opacity: 1;
+}
+
+.shopItHomeScreen :active {
+    opacity: 1;
+}
