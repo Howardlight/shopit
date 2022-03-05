@@ -114,6 +114,7 @@ export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispat
 
         return (
             <Button
+            color="inherit"
             endIcon={<WishlistIcon />}
             onClick={() => setIsDrawerOpen(true)}
             >
