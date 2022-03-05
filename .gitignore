@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-pages/ExampleObj.json
+ExampleObj.json
 
 # next.js
 /.next/
