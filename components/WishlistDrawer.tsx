@@ -57,8 +57,7 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
                                 <Box style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center" }}>
                                     <Typography variant="subtitle2">{product.category}</Typography>
                                     <IconButton
-                                        onClick={() => dispatch(removeFromWishlist(product))}
-                                    >
+                                        onClick={() => dispatch(removeFromWishlist(product.id))}>
                                         <DeleteIcon color="error" />
                                     </IconButton>
                                 </Box>

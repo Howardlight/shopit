@@ -47,7 +47,7 @@ function ProductPage({product}: {product: Product}) {
     function handleWishlistButton(product: Product) {
         // console.log("HandleWishlist Button rendered");
 
-        if(isWishlisted) dispatch(removeFromWishlist(product));
+        if(isWishlisted) dispatch(removeFromWishlist(product.id));
         else if(!isWishlisted) {
             dispatch(addToWishlist(product));
             setIsWishlisted(true);

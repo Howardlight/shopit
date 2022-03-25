@@ -65,7 +65,7 @@ export default function ProductCard(props: { product: Product }) {
     function AddWishlistButton() {
 
         const handleAddtoWishlistClick = () => {
-            if(checkIfInWishlist(props.product, wishlist)) dispatch(removeFromWishlist(props.product));
+            if(checkIfInWishlist(props.product, wishlist)) dispatch(removeFromWishlist(props.product.id));
             else dispatch(addToWishlist(props.product));
         };
 
