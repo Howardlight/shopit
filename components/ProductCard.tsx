@@ -62,7 +62,7 @@ export default function ProductCard(props: { product: Product }) {
     }
 
 
-    function AddWishlistButton() {
+    function AddToWishlistButton() {
 
         const handleAddtoWishlistClick = () => {
             if(checkIfInWishlist(props.product, wishlist)) dispatch(removeFromWishlist(props.product.id));
@@ -115,7 +115,7 @@ export default function ProductCard(props: { product: Product }) {
             </Link>
             <CardActions className={[styles.buttonsBox].join(" ")}>
                 <AddToCartButton />
-                <AddWishlistButton />
+                <AddToWishlistButton />
             </CardActions>
         </Card>
     );
