@@ -1,14 +1,3 @@
-
-import { 
-    addToWishlist,
-    removeFromWishlist, 
-} from "../redux/WishlistSlice";
-
-import { 
-    useAppDispatch,
-    useAppSelector
-} from "../redux/hooks";
-
 import { Product } from "./types";
 
 /**
