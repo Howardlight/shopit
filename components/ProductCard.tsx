@@ -77,14 +77,14 @@ export default function ProductCard(props: { product: Product }) {
                 <Favorite />
             </IconButton>
         );
-    };
+    }
 
 
     return (
         <Card
             variant="outlined"
             key={props.product.id}
-            style={{ minHeight: "300px" }}
+            style={{height: "430px"}}
         >
             <Link href={`/product/${props.product.id}`}>
                 <a>
@@ -101,7 +101,7 @@ export default function ProductCard(props: { product: Product }) {
                             />
                         </Paper>
                         <CardContent>
-                            <Typography gutterBottom variant="h6">{props.product.title}</Typography>
+                            <Typography gutterBottom className={styles.productTitle}  variant="subtitle1">{props.product.title}</Typography>
                             <Box className={[styles.cardContentBox].join(" ")}>
                                 <Typography color="text.secondary" fontSize={"small"}>{props.product.price}$</Typography>
                                 <Box className={[styles.ratingDiv].join(" ")}>
