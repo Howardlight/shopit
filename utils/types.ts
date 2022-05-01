@@ -11,6 +11,14 @@ export interface Product {
     image:       string;
     rating:      Rating;
     quantity?:   number;
+    Size?: Size;
+}
+
+export enum Size {
+    Small = "S",
+    Medium = "M",
+    Large = "L",
+    ExtraLarge = "XL"
 }
 
 export enum Category {
