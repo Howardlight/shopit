@@ -11,7 +11,7 @@ export interface Product {
     image:       string;
     rating:      Rating;
     quantity?:   number;
-    Size?: Size;
+    Size?: Size | null;
 }
 
 export enum Size {
