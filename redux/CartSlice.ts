@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Product } from "../utils/types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Category, Product} from "../utils/types";
 
 
 interface cartState {
@@ -16,8 +16,18 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action: PayloadAction<Product>) => {
 
-            // Look for item in state with same size
-            const itemExists = state.content.find((item: Product) => item.id === action.payload.id && item.Size == action.payload.Size);
+            let itemExists = null;
+            //Check if item is Clothing
+            if(
+                action.payload.category == Category.MenSClothing ||
+                action.payload.category == Category.WomenSClothing
+            ) {
+                // Filters by id AND size
+                itemExists = state.content.find((item: Product) => item.id === action.payload.id && item.Size == action.payload.Size);
+            } else {
+                // Filters by id ONLY
+                itemExists = state.content.find((item: Product) => item.id === action.payload.id);
+            }
 
             // if it exists, increase its quantity
             if (itemExists) {
@@ -30,6 +40,7 @@ const cartSlice = createSlice({
                 // console.log(`addToCart added Item \n-  item: ${action.payload.title} \n-  quantity: ${action.payload.quantity}`)
             }
         },
+        //TODO: Update this for Size Elements and categories
         incrementQuantity: (state, action) => {
 
             // Look for item in state
