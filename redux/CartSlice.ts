@@ -16,8 +16,8 @@ const cartSlice = createSlice({
     reducers: {
         addToCart: (state, action: PayloadAction<Product>) => {
 
-            // Look for item in state
-            const itemExists = state.content.find((item: Product) => item.id === action.payload.id);
+            // Look for item in state with same size
+            const itemExists = state.content.find((item: Product) => item.id === action.payload.id && item.Size == action.payload.Size);
 
             // if it exists, increase its quantity
             if (itemExists) {
@@ -46,7 +46,7 @@ const cartSlice = createSlice({
                     item.quantity++;
                     // console.log(`incrementQuantity increased Quantity \n-  item: ${item.title} \n-  quantity: ${item.quantity}`)
                 }
-            };
+            }
         },
         decrementQuantity: (state, action) => {
 
@@ -77,8 +77,8 @@ const cartSlice = createSlice({
                         item.quantity--;
                         // console.log(`decrementQuantity decreased Quantity \n-  item: ${item} \n-  quantity: ${item.quantity}`)
                     }
-                };
-            };
+                }
+            }
         },
         removeFromCart: (state, action) => {
             // find item
