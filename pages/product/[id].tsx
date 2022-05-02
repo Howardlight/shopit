@@ -1,5 +1,5 @@
 import imageLoader from "../../imageLoader";
-import {Product, Size} from "../../utils/types";
+import {Category, Product, Size} from "../../utils/types";
 import Image from "next/image";
 import axios from "axios";
 import {Alert, Box, Button, Collapse, Grid, Typography,} from "@mui/material";
@@ -21,8 +21,8 @@ function ProductPage({product}: { product: Product }) {
     const wishlist = useAppSelector((state) => state.wishlist.content);
     const [isWishlisted, setIsWishlisted] = useState(false);
 
-    //TODO: if size is null display error
-    //TODO: create a warning bar for when size is null
+    //TODO: Make it so it's only available to Men's clothing and women's clothing
+    //TODO: Modify CartSlice so it can take null Slices
     const [size, setSize] = useState< Size | null >(null);
     const [displayError, setDisplayError] = useState<boolean>(false);
 
@@ -45,14 +45,17 @@ function ProductPage({product}: { product: Product }) {
     }
     function handleAddToCartButton(product: Product) {
 
-        // If user did not select a size, Promp Error
-        if(size == null) {
-            setDisplayError(true);
-            return ;
-        }
+        let toBeCartedProduct: Product;
+        toBeCartedProduct = product;
 
-        let toBeCartedProduct: Product = product;
-        toBeCartedProduct.Size = size;
+        // If user did not select a size, Promp Error
+        if( product.category == Category.MenSClothing || product.category == Category.WomenSClothing) {
+            if (size == null) {
+                setDisplayError(true);
+                return;
+            }
+            toBeCartedProduct.Size = size;
+        }
 
         dispatch(addToCart(toBeCartedProduct));
     }
@@ -90,10 +93,16 @@ function ProductPage({product}: { product: Product }) {
                     >
                         {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
                     </Button>
-                    <ItemSizesGroup setSize={setSize}/>
-                    <Collapse in={displayError}>
-                        <Alert severity={"error"} onClose={() => setDisplayError(false)}>You must select a <strong>size</strong></Alert>
-                    </Collapse>
+                    {product.category == Category.WomenSClothing || product.category == Category.MenSClothing ?
+                        <React.Fragment>
+                            <ItemSizesGroup setSize={setSize}/>
+                            <Collapse in={displayError}>
+                                <Alert severity={"error"} onClose={() => setDisplayError(false)}>You must select
+                                    a <strong>size</strong></Alert>
+                            </Collapse>
+                        </React.Fragment>
+                        : ""
+                    }
                 </Box>
                 <br/>
                 <Typography variant="body1" gutterBottom>{product.description}</Typography>
