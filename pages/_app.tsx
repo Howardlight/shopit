@@ -1,20 +1,14 @@
 import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode } from 'react';
-import { NextPage } from 'next';
+import type {AppProps} from 'next/app'
+import {ReactElement, ReactNode} from 'react';
+import {NextPage} from 'next';
 
-//Redux
 import store from "../redux/store";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 
-// MUI
-import { 
-  ThemeProvider, 
-  // CssBaseline 
-} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 
 
-// Custom
 import lightTheme from "../styles/theme/lightTheme";
 
 
