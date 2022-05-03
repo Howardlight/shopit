@@ -28,10 +28,10 @@ function Home({ productTable }: { productTable: Product[] }) {
 
   return (
     <Grid>
-      <Grid className={styles.mainGrid}>
+      <Grid container columns={{xs: 4, sm: 8, md: 12, lg: 16}} className={styles.mainGrid}>
         {productTable.map((product) => {
           return (
-            <Grid item xs={8} md={4} key={product.id} style={{ padding: "25px" }}>
+            <Grid item xs={4} sm={4} md={4} lg={4} key={product.id} style={{ padding: "25px" }}>
               <ProductCard
                 product={product}
                 key={product.id}

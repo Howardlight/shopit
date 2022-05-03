@@ -2,9 +2,9 @@
 /* TODO: justify-content space-evenly is not supported by 
 internet-explorer fix that */
 .mainGrid {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 25px;
+  /*display: flex;*/
+  /*justify-content: space-evenly;*/
+  /*flex-direction: row;*/
+  /*flex-wrap: wrap;*/
+  /*margin: 25px;*/
 }
