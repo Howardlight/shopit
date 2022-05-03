@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TopBar from "./TopBar";
+import TopBar from "./topbar/TopBar";
 import Footer from "./Footer";
 import WishlistDrawer from "./WishlistDrawer";
 
