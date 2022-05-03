@@ -1,41 +1,13 @@
 import Link from "next/link";
-
-import * as React from "react";
-import {useCallback, useMemo} from "react";
+import {Dispatch, SetStateAction, useCallback} from "react";
 import {AppBar, Badge, Box, Button, Toolbar, Typography,} from "@mui/material";
 import ShoppingCart from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
 import {useAppSelector} from "../redux/hooks";
-import {NextRouter, useRouter} from "next/router";
-
+import {useRouter} from "next/router";
 import styles from "../styles/TopBar.module.css";
-import {Product} from "../utils/types";
 
-export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>} ) {
-
-    const router = useRouter();
-
-    // REACT REDUX
-    // const cart = useAppSelector((state) => state.cart.content);
-    // const wishlist = useAppSelector((state) => state.wishlist.content);
-
-
-    // const getTotalCartItems = useCallback((): number => {
-    //     let out: number = 0
-    //     for(let i: number = 0; i < cart.length; i++) {
-    //         out += cart[i].quantity!;
-    //         // Quantity cannot logically be 0
-    //         // as it would not have been in the cart otherwise
-    //         // (Redux handles this logic, check CartSlice)
-    //     }
-    //
-    //     return out;
-    // },[cart]);
-
-    console.log("Topbar Rerendered");
-
-
+export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: Dispatch<SetStateAction<boolean>>} ) {
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" style={{backgroundColor: "#F3D9DC", color: "#C78283"}}>
@@ -54,18 +26,14 @@ export default function TopBar({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispat
                         </Link>
                     </Typography>
                     <WishlistButton setIsDrawerOpen={setIsDrawerOpen} />
-                    {/*<ShoppingCartButton  router={router} getTotalCartItems={getTotalCartItems}/>*/}
+                    <ShoppingCartButton />
                 </Toolbar>
             </AppBar>
       </Box>
     );
 }
 
-const WishlistButton = ({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>}) => {
-    console.log("WhishlistButton Rerender");
-    // NOTE: This also re-renders when it doesn't need to
-    // same case as ShoppingCartButton
-
+const WishlistButton = ({setIsDrawerOpen}: {setIsDrawerOpen: Dispatch<SetStateAction<boolean>>}) => {
     return (
         <Button
             color="inherit"
@@ -79,9 +47,8 @@ const WishlistButton = ({setIsDrawerOpen}: {setIsDrawerOpen: React.Dispatch<Reac
 
 const WishlistIcon = () => {
 
+    // Grabs length of wishlist
     const wishlistLength = useAppSelector((state) => state.wishlist.content.length);
-    console.log("wishlistIcon re-rendered");
-
     return (
         <Badge badgeContent={wishlistLength == 0 ? 0 : wishlistLength} color="error">
             <FavoriteIcon/>
@@ -89,13 +56,10 @@ const WishlistIcon = () => {
     );
 };
 
-const ShoppingCartButton = ({router, getTotalCartItems}: {router: NextRouter, getTotalCartItems: () => number}) => {
+const ShoppingCartButton = () => {
 
-    // console.log("ShoppingCartButton Rerender");
-    //TODO: Button re-renders each time an item is added, Fix this
-    // make it so only the badge re-renders
-    //NOTE: It also re-renders when a wishlist item is added
-
+    // Next Router to re-route to /cart
+    const router = useRouter();
     return (
         <>
             <Button
@@ -103,7 +67,7 @@ const ShoppingCartButton = ({router, getTotalCartItems}: {router: NextRouter, ge
                 id="composition-button"
                 aria-haspopup="true"
                 onClick={() => router.push("/cart")}
-                endIcon={<ShoppingCartIcon getTotalCartItems={getTotalCartItems} />}
+                endIcon={<ShoppingCartIcon />}
             >
                 Your Cart
             </Button>
@@ -111,8 +75,22 @@ const ShoppingCartButton = ({router, getTotalCartItems}: {router: NextRouter, ge
     );
 };
 
-const ShoppingCartIcon = ({getTotalCartItems}: {getTotalCartItems: () => number}) => {
-    console.log("WhishlistButton Rerender");
+const ShoppingCartIcon = () => {
+
+    // Grabs cart from Redux state
+    const cart = useAppSelector((state) => state.cart.content);
+    const getTotalCartItems = useCallback((): number => {
+        let out: number = 0
+        for(let i: number = 0; i < cart.length; i++) {
+            out += cart[i].quantity!;
+            // Quantity cannot logically be 0
+            // as it would not have been in the cart otherwise
+            // (Redux handles this logic, check CartSlice)
+        }
+
+        return out;
+    },[cart]);
+
     return (
         <Badge badgeContent={getTotalCartItems()} color="error">
             <ShoppingCart/>
