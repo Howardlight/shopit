@@ -19,10 +19,8 @@ function ProductPage({product}: { product: Product }) {
 
     const dispatch = useAppDispatch();
     const wishlist = useAppSelector((state) => state.wishlist.content);
-    const [isWishlisted, setIsWishlisted] = useState(false);
 
-    //TODO: Make it so it's only available to Men's clothing and women's clothing
-    //TODO: Modify CartSlice so it can take null Slices
+    const [isWishlisted, setIsWishlisted] = useState(false);
     const [size, setSize] = useState< Size | null >(null);
     const [displayError, setDisplayError] = useState<boolean>(false);
 
@@ -80,7 +78,6 @@ function ProductPage({product}: { product: Product }) {
                         variant="contained"
                         color="primary"
                         endIcon={<ShoppingCartIcon/>}
-                        // onClick={() => dispatch(addToCart(product))}
                         onClick={() => handleAddToCartButton(product)}
                     >
                         Add To Cart
