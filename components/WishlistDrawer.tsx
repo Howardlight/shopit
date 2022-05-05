@@ -24,6 +24,8 @@ import imageLoader from "../imageLoader";
 import DeleteIcon from '@mui/icons-material/Delete';
 import Favorite from '@mui/icons-material/Favorite';
 
+import wishlistDrawerStyles from "../styles/WishlistDrawer.module.css";
+
 export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawerOpen: boolean, setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>}) {
 
     const dispatch = useAppDispatch();
@@ -40,8 +42,6 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
     }
 
 
-    //TODO: Trashbin moves next to Category,
-    // Make it so it sticks to the bottom right of the container
     return (
         <Drawer
             anchor={"right"}
@@ -49,15 +49,18 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
             onClose={() => setIsDrawerOpen(false)}
         >
             {wishlist.length == 0 ? <EmptyWishlist /> : wishlist.map((product, index) => {
+
                 return (
                     <div key={index}>
-                        <Box key={index} style={{ display: "flex", justifyContent: "center", flexDirection: "row", maxWidth: "300px", padding: "3px" }}>
+                        <Box key={index} className={wishlistDrawerStyles.wishlistItem}>
                             <Image loader={imageLoader} alt={product.title} src={product.image} unoptimized height="128" width="128" />
-                            <Container style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
-                                <Typography variant="subtitle1">{product.title}</Typography>
-                                <Box style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center"}}>
+                            <Container className={wishlistDrawerStyles.wishlistItemTextContainer}>
+                                <Typography variant="subtitle2" display={"block"} style={{overflow: "hidden"}}>{product.title}</Typography>
+                                <Box style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center", pointerEvents: "none"}}>
                                     <Typography variant="subtitle2">{product.category}</Typography>
                                     <IconButton
+                                        // @ts-ignore
+                                        style={{pointerEvents: "bounding-box"}} // This is valid CSS i dunno why it props up on me
                                         onClick={() => dispatch(removeFromWishlist(product.id))}>
                                         <DeleteIcon color="error" />
                                     </IconButton>

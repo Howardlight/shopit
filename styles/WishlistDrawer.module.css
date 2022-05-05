@@ -1,0 +1,26 @@
+
+.wishlistItem {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    max-width: 300px;
+    padding: 3px;
+
+    opacity: 100%;
+}
+
+.wishlistItemTextContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.wishlistItemTextContainer :hover {
+    opacity: 0.5;
+    cursor: pointer;
+    -moz-transition: opacity .25s ease-out;
+    -webkit-transition: opacity .25s ease-out;
+    -o-transition: opacity .25s ease-out;
+    transition: opacity 0.25s ease-out;
+}
