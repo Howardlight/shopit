@@ -1,25 +1,15 @@
 import * as React from 'react';
-import {
-    Toolbar,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Drawer,
-    Typography,
-    Box,
-    Container,
-    IconButton,
-} from "@mui/material";
+import {Box, Container, Drawer, IconButton, Typography,} from "@mui/material";
 
 import Divider from "@mui/material/Divider";
 
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { removeFromWishlist } from '../redux/WishlistSlice';
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import {removeFromWishlist} from '../redux/WishlistSlice';
 
 
 import Image from "next/image";
 import imageLoader from "../imageLoader";
+import Link from "next/link";
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import Favorite from '@mui/icons-material/Favorite';
@@ -55,14 +45,32 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
                         <Box key={index} className={wishlistDrawerStyles.wishlistItem}>
                             <Image loader={imageLoader} alt={product.title} src={product.image} unoptimized height="128" width="128" />
                             <Container className={wishlistDrawerStyles.wishlistItemTextContainer}>
-                                <Typography variant="subtitle2" display={"block"} style={{overflow: "hidden"}}>{product.title}</Typography>
-                                <Box style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center", pointerEvents: "none"}}>
+                                <Link href={`/product/${product.id}`}>
+                                    <a>
+                                        <Typography
+                                            variant="subtitle2" display={"block"}
+                                            style={{overflow: "hidden"}}
+                                            onClick={() => setIsDrawerOpen(false)}
+                                        >
+                                            {product.title}
+                                        </Typography>
+                                    </a>
+                                </Link>
+                                <Box style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    pointerEvents: "none"
+                                }}>
+
                                     <Typography variant="subtitle2">{product.category}</Typography>
+
                                     <IconButton
                                         // @ts-ignore
                                         style={{pointerEvents: "bounding-box"}} // This is valid CSS i dunno why it props up on me
                                         onClick={() => dispatch(removeFromWishlist(product.id))}>
-                                        <DeleteIcon color="error" />
+                                        <DeleteIcon color="error"/>
                                     </IconButton>
                                 </Box>
                             </Container>
