@@ -40,7 +40,8 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
     }
 
 
-
+    //TODO: Trashbin moves next to Category,
+    // Make it so it sticks to the bottom right of the container
     return (
         <Drawer
             anchor={"right"}
@@ -52,9 +53,9 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
                     <div key={index}>
                         <Box key={index} style={{ display: "flex", justifyContent: "center", flexDirection: "row", maxWidth: "300px", padding: "3px" }}>
                             <Image loader={imageLoader} alt={product.title} src={product.image} unoptimized height="128" width="128" />
-                            <Container>
+                            <Container style={{display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
                                 <Typography variant="subtitle1">{product.title}</Typography>
-                                <Box style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center" }}>
+                                <Box style={{ display: "flex", justifyContent: "space-between", flexDirection: "row", alignItems: "center"}}>
                                     <Typography variant="subtitle2">{product.category}</Typography>
                                     <IconButton
                                         onClick={() => dispatch(removeFromWishlist(product.id))}>
