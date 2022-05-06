@@ -14,6 +14,7 @@ import {addToWishlist, removeFromWishlist} from "../../redux/WishlistSlice";
 import {checkIfInWishlist} from "../../utils/WishlistUtils";
 import styles from "../../styles/[id].module.css";
 import {addToCart} from "../../redux/CartSlice";
+import Head from "next/head";
 
 function ProductPage({product}: { product: Product }) {
 
@@ -60,52 +61,57 @@ function ProductPage({product}: { product: Product }) {
 
 
     return (
-        <Grid className={styles.mainGrid}>
-            <Image
-                src={product.image}
-                alt={product.title}
-                loader={imageLoader}
-                unoptimized
-                height={"350"}
-                width={"300"}
-            />
-            <Grid className={styles.contentGrid}>
-                <Typography variant="h5">{product.title}</Typography>
-                <Typography variant="h6" className={styles.price}>{product.price}$</Typography>
-                <Box className={styles.buttonBox}>
-                    <Button
-                        size="large"
-                        variant="contained"
-                        color="primary"
-                        endIcon={<ShoppingCartIcon/>}
-                        onClick={() => handleAddToCartButton(product)}
-                    >
-                        Add To Cart
-                    </Button>
-                    <Button
-                        size="large"
-                        variant={isWishlisted ? "contained" : "outlined"}
-                        endIcon={isWishlisted ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
-                        onClick={() => handleWishlistButton(product = (product))}
-                    >
-                        {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
-                    </Button>
-                    {product.category == Category.WomenSClothing || product.category == Category.MenSClothing ?
-                        <React.Fragment>
-                            <ItemSizesGroup setSize={setSize}/>
-                            <Collapse in={displayError}>
-                                <Alert severity={"error"} onClose={() => setDisplayError(false)}>You must select
-                                    a <strong>size</strong></Alert>
-                            </Collapse>
-                        </React.Fragment>
-                        : ""
-                    }
-                </Box>
-                <br/>
-                <Typography variant="body1" gutterBottom>{product.description}</Typography>
+        <React.Fragment>
+            <Head>
+                <title>{product.title} - ShopIt</title>
+            </Head>
+            <Grid className={styles.mainGrid}>
+                <Image
+                    src={product.image}
+                    alt={product.title}
+                    loader={imageLoader}
+                    unoptimized
+                    height={"350"}
+                    width={"300"}
+                />
+                <Grid className={styles.contentGrid}>
+                    <Typography variant="h5">{product.title}</Typography>
+                    <Typography variant="h6" className={styles.price}>{product.price}$</Typography>
+                    <Box className={styles.buttonBox}>
+                        <Button
+                            size="large"
+                            variant="contained"
+                            color="primary"
+                            endIcon={<ShoppingCartIcon/>}
+                            onClick={() => handleAddToCartButton(product)}
+                        >
+                            Add To Cart
+                        </Button>
+                        <Button
+                            size="large"
+                            variant={isWishlisted ? "contained" : "outlined"}
+                            endIcon={isWishlisted ? <FavoriteIcon/> : <FavoriteBorderIcon/>}
+                            onClick={() => handleWishlistButton(product = (product))}
+                        >
+                            {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
+                        </Button>
+                        {product.category == Category.WomenSClothing || product.category == Category.MenSClothing ?
+                            <React.Fragment>
+                                <ItemSizesGroup setSize={setSize}/>
+                                <Collapse in={displayError}>
+                                    <Alert severity={"error"} onClose={() => setDisplayError(false)}>You must select
+                                        a <strong>size</strong></Alert>
+                                </Collapse>
+                            </React.Fragment>
+                            : ""
+                        }
+                    </Box>
+                    <br/>
+                    <Typography variant="body1" gutterBottom>{product.description}</Typography>
 
+                </Grid>
             </Grid>
-        </Grid>
+        </React.Fragment>
     );
 }
 

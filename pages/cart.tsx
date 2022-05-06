@@ -28,7 +28,8 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
+import Head from "next/head";
+import React from "react";
 CartPage.getLayout = function getLayout(page: typeof CartPage) {
     return <Layout>{page}</Layout>
 }
@@ -46,51 +47,56 @@ function CartPage() {
     };
 
     return(
-        <Container
-        className={styles.container}
-        >
-            {cart.length === 0 ? (
-                <Box style={{minHeight: "500px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-                <Typography variant="h3" color="primary">
-                    Your Cart is Empty!
-                </Typography>
-                <br />
-                <Typography variant="h6" color="secondary">
-                    Click `add to cart` to add an item to your cart
-                </Typography>
-                </Box>
-            ) : (
-                <>
-                    {cart.map((item, index) => (
-                        <div
-                        className={styles.body}
-                        key={index}>
+        <React.Fragment>
+            <Head>
+                <title>My Cart - ShopIt</title>
+            </Head>
+            <Container
+                className={styles.container}
+            >
+                {cart.length === 0 ? (
+                    <Box style={{ minHeight: "500px", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+                        <Typography variant="h3" color="primary">
+                            Your Cart is Empty!
+                        </Typography>
+                        <br />
+                        <Typography variant="h6" color="secondary">
+                            Click `add to cart` to add an item to your cart
+                        </Typography>
+                    </Box>
+                ) : (
+                    <>
+                        {cart.map((item, index) => (
                             <div
-                            className={styles.image}
-                            >
-                                <Image loader={imageLoader} unoptimized src={item.image} alt={item.title} height="90" width="65" />
+                                className={styles.body}
+                                key={index}>
+                                <div
+                                    className={styles.image}
+                                >
+                                    <Image loader={imageLoader} unoptimized src={item.image} alt={item.title} height="90" width="65" />
+                                </div>
+                                <Typography variant="subtitle2">{item.title}</Typography>
+                                <Typography>$ {item.price}</Typography >
+                                <Typography >{item.quantity}</Typography >
+                                <ButtonGroup className={styles.mainButtonGroup}>
+                                    <IconButton color="primary" onClick={() => dispatch(incrementQuantity(item.id))}>
+                                        <AddIcon />
+                                    </IconButton>
+                                    <IconButton color="primary" onClick={() => dispatch(decrementQuantity(item.id))}>
+                                        <RemoveIcon />
+                                    </IconButton>
+                                    <IconButton color="error" onClick={() => dispatch(removeFromCart(item.id))}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </ButtonGroup>
+                                <Typography variant="subtitle2">$ {Math.round((item.quantity! * item.price) * 100) / 100}</Typography>
                             </div>
-                            <Typography variant="subtitle2">{item.title}</Typography>
-                            <Typography>$ {item.price}</Typography >
-                            <Typography >{item.quantity}</Typography >
-                            <ButtonGroup className={styles.mainButtonGroup}>
-                                <IconButton color="primary" onClick={() => dispatch(incrementQuantity(item.id))}>
-                                    <AddIcon />
-                                </IconButton>
-                                <IconButton color="primary" onClick={() => dispatch(decrementQuantity(item.id))}>
-                                    <RemoveIcon />
-                                </IconButton>
-                                <IconButton color="error" onClick={() => dispatch(removeFromCart(item.id))}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </ButtonGroup>
-                            <Typography variant="subtitle2">$ {Math.round( (item.quantity! * item.price) * 100) / 100}</Typography>
-                        </div>
-                    ))}
-                    <h2>Grand Total: $ {Math.round(getTotalPrice() * 100 ) / 100}</h2>
-                </>
-            )}
-        </Container>
+                        ))}
+                        <h2>Grand Total: $ {Math.round(getTotalPrice() * 100) / 100}</h2>
+                    </>
+                )}
+            </Container>
+        </React.Fragment>
     );
 };
 
