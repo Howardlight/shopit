@@ -1,7 +1,9 @@
 import * as React from "react";
 import {Dispatch, SetStateAction, useState} from "react";
-import {Size} from "../utils/types";
+import {Product, Size} from "../utils/types";
 import {Button} from "@mui/material";
+import {AnyAction} from "redux";
+import {addToCart} from "../redux/CartSlice";
 
 // Sizes: S|M|L|XL
 function ItemSizeButton(
@@ -44,6 +46,56 @@ export function ItemSizesButtonGroup({setSize}: { setSize: Dispatch<SetStateActi
                             keyId={size.toString()}
                             setIsActive={setIsActive}
                             setSize={setSize}
+                        />
+                    );
+                })}
+            </div>
+        </React.Fragment>
+    );
+}
+
+//TODO: Explain this
+export function ItemSizeButtonFrontPage(
+    {size, dispatch, product}: { size: string, dispatch: Dispatch<AnyAction>, product: Product }) {
+    return (
+        <Button
+            variant={"outlined"}
+            size={"small"}
+            onClick={() => {
+
+                // Take the product, then give it its associated Size
+                // then pass it into cart
+                let toBeCartedProduct = product;
+                toBeCartedProduct.Size = size as Size;
+
+                dispatch(addToCart(toBeCartedProduct));
+            }}
+        >
+            {size}
+        </Button>
+    )
+}
+
+//TODO: Explain this
+export function ItemSizesButtonGroupFrontPage({dispatch, product}: {dispatch: Dispatch<AnyAction>, product: Product}) {
+
+    // Sizes: S|M|L|XL
+    //TODO: Global this, maybe export it
+    const sizes: Size[] = [Size.Small, Size.Medium, Size.Large, Size.ExtraLarge];
+    return (
+        <React.Fragment>
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                }}>
+                {sizes.map((size: string) => {
+                    return (
+                        <ItemSizeButtonFrontPage
+                            size={size}
+                            key={size.toString()}
+                            dispatch={dispatch}
+                            product={product}
                         />
                     );
                 })}
