@@ -20,7 +20,7 @@ function ItemSizeButton(
     )
 }
 
-export function ItemSizesGroup({setSize}: { setSize: Dispatch<SetStateAction<Size | null>> }) {
+export function ItemSizesButtonGroup({setSize}: { setSize: Dispatch<SetStateAction<Size | null>> }) {
 
     // used to specify which size is Active
     const [isActive, setIsActive] = useState<string | null>(null);

@@ -15,7 +15,7 @@ import {checkIfInWishlist} from "../../utils/WishlistUtils";
 import styles from "../../styles/[id].module.css";
 import {addToCart} from "../../redux/CartSlice";
 import Head from "next/head";
-import {ItemSizesGroup} from "../../components/SizeButtons";
+import {ItemSizesButtonGroup} from "../../components/SizeButtons";
 
 function ProductPage({product}: { product: Product }) {
 
@@ -98,7 +98,7 @@ function ProductPage({product}: { product: Product }) {
                         </Button>
                         {product.category == Category.WomenSClothing || product.category == Category.MenSClothing ?
                             <React.Fragment>
-                                <ItemSizesGroup setSize={setSize}/>
+                                <ItemSizesButtonGroup setSize={setSize}/>
                                 <Collapse in={displayError}>
                                     <Alert severity={"error"} onClose={() => setDisplayError(false)}>You must select
                                         a <strong>size</strong></Alert>
