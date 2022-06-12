@@ -7,7 +7,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import * as React from "react";
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Layout from "../../components/Layout";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {addToWishlist, removeFromWishlist} from "../../redux/WishlistSlice";
@@ -15,6 +15,7 @@ import {checkIfInWishlist} from "../../utils/WishlistUtils";
 import styles from "../../styles/[id].module.css";
 import {addToCart} from "../../redux/CartSlice";
 import Head from "next/head";
+import {ItemSizesGroup} from "../../components/SizeButtons";
 
 function ProductPage({product}: { product: Product }) {
 
@@ -111,56 +112,6 @@ function ProductPage({product}: { product: Product }) {
 
                 </Grid>
             </Grid>
-        </React.Fragment>
-    );
-}
-
-// Sizes: S|M|L|XL
-//TODO: maybe export this along with ItemSizesGroup
-function ItemSizeButton(
-    {size, keyId, isActive, setIsActive, setSize}:
-    { size: string, keyId: string, isActive: string | null, setIsActive: Dispatch<SetStateAction<string | null>>, setSize: Dispatch<SetStateAction<Size | null>> }) {
-    return (
-        <Button
-            variant={isActive === keyId ? "contained" : "outlined"}
-            onClick={() => {
-                setIsActive(keyId);
-                setSize(keyId as Size);
-            }}
-        >
-            {size}
-        </Button>
-    )
-}
-
-function ItemSizesGroup({setSize}: { setSize: Dispatch<SetStateAction< Size | null>> }) {
-
-    // used to specify which size is Active
-    const [isActive, setIsActive] = useState<string | null>(null);
-
-    // Sizes: S|M|L|XL
-    //TODO: Global this, maybe export it
-    const sizes: Size[] = [Size.Small, Size.Medium, Size.Large, Size.ExtraLarge];
-    return (
-        <React.Fragment>
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                }}>
-                {sizes.map((size: string) => {
-                    return (
-                        <ItemSizeButton
-                            size={size}
-                            isActive={isActive}
-                            key={size.toString()}
-                            keyId={size.toString()}
-                            setIsActive={setIsActive}
-                            setSize={setSize}
-                        />
-                    );
-                })}
-            </div>
         </React.Fragment>
     );
 }
