@@ -43,7 +43,7 @@ export default function WishlistDrawer({isDrawerOpen, setIsDrawerOpen}: {isDrawe
                 return (
                     <div key={index}>
                         <Box key={index} className={wishlistDrawerStyles.wishlistItem}>
-                            <Image loader={imageLoader} alt={product.title} src={product.image} unoptimized height="128" width="128" />
+                            <Image loader={imageLoader} alt={product.title} src={product.image} unoptimized height="128" width="128" objectFit='contain' />
                             <Container className={wishlistDrawerStyles.wishlistItemTextContainer}>
                                 <Link href={`/product/${product.id}`}>
                                     <a>
