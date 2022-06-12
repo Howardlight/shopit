@@ -4,23 +4,23 @@ import Link from "next/link";
 import imageLoader from "../imageLoader";
 
 // TYPESCRIPT INTERFACES
-import { Product } from "../utils/types";
+import {Category, Product} from "../utils/types";
 
 // REDUX TOOLKIT
-import { useAppSelector, useAppDispatch} from "../redux/hooks";
-import { addToCart } from "../redux/CartSlice";
+import {useAppDispatch, useAppSelector} from "../redux/hooks";
+import {addToCart} from "../redux/CartSlice";
 
 // MATERIAL UI
 import {
-    Card,
-    Paper,
-    CardContent,
-    Typography,
     Box,
-    CardActionArea,
     Button,
+    Card,
+    CardActionArea,
     CardActions,
+    CardContent,
     IconButton,
+    Paper,
+    Typography,
 } from "@mui/material";
 
 // MATERIAL UI ICONS
@@ -29,10 +29,11 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Favorite from "@mui/icons-material/Favorite";
 
 
-import { addToWishlist, removeFromWishlist } from "../redux/WishlistSlice";
-import { checkIfInWishlist } from "../utils/WishlistUtils";
+import {addToWishlist, removeFromWishlist} from "../redux/WishlistSlice";
+import {checkIfInWishlist} from "../utils/WishlistUtils";
 
 import styles from "../styles/ProductCard.module.css";
+import {ItemSizesButtonGroupFrontPage} from "./SizeButtons";
 
 
 export default function ProductCard(props: { product: Product }) {
@@ -117,7 +118,7 @@ export default function ProductCard(props: { product: Product }) {
                 </a>
             </Link>
             <CardActions className={[styles.buttonsBox].join(" ")}>
-                <AddToCartButton />
+                {props.product.category == Category.WomenSClothing || props.product.category == Category.MenSClothing ? <ItemSizesButtonGroupFrontPage dispatch={dispatch} product={props.product} /> : <AddToCartButton />}
                 <AddToWishlistButton />
             </CardActions>
         </Card>
