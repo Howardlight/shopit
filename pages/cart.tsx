@@ -1,14 +1,12 @@
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
 
-import {Box, ButtonGroup, Card, CardContent, CardMedia, Container, Typography, IconButton} from "@mui/material";
-import Image from "next/image";
+import {Box, ButtonGroup, Card, CardContent, CardMedia, Container, IconButton, Typography} from "@mui/material";
 
 // Styles
 import styles from "../styles/Cart.module.css";
 
 // Components
 import Layout from "../components/Layout";
-import imageLoader from "../imageLoader";
 
 // Icons
 import AddIcon from '@mui/icons-material/Add';
@@ -58,7 +56,9 @@ function CartPage() {
                 ) : (
                     <>
                         {cart.map((item, index) => (
-                            <CartCard product={item} key={index} dispatch={dispatch} />
+                            <React.Fragment key={index}>
+                                <CartCard product={item} dispatch={dispatch} />
+                            </React.Fragment>
                         ))}
                         <h2>Grand Total: $ {Math.round(getTotalPrice() * 100) / 100}</h2>
                     </>
@@ -68,54 +68,53 @@ function CartPage() {
     );
 }
 
-function CartCard({product, key, dispatch}: {product: Product, key: number, dispatch: Dispatch<AnyAction> }) {
+function CartCard({product, dispatch}: {product: Product, dispatch: Dispatch<AnyAction> }) {
 
-    return(
-        <React.Fragment key={key}>
-            <Card sx={{height: 150, margin: "25px"}} style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-            }}>
+    return (
+        <Card sx={{height: 150, margin: "25px"}} style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+        }}>
 
-                <CardMedia
-                    component={"img"}
+            <CardMedia
+                component={"img"}
 
-                    style={{width: "auto", objectFit: "contain", padding: "5px"}}
+                style={{width: "auto", objectFit: "contain", padding: "5px"}}
 
-                    image={product.image}
-                />
-
-
-                <CardContent style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}} sx={{flexGrow: 3}}>
+                image={product.image}
+            />
 
 
-                    <Box sx={{display: "flex", flexDirection: "column", alignItems: "flex-start"}}>
-                        <Typography variant={"subtitle2"}>{product.title}</Typography>
-                        <Typography>Item Price: {product.price}</Typography>
-                        <Typography>Quantity: {product.quantity}</Typography>
-                        {product.Size ? <Typography>Size: {product.Size}</Typography> : <></>}
-                    </Box>
+            <CardContent style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}
+                         sx={{flexGrow: 3}}>
 
 
-                    <ButtonGroup
-                        // className={styles.mainButtonGroup}
-                        style={{display: "flex", flexDirection: "column"}}
-                    >
-                        <IconButton color="primary" onClick={() => dispatch(incrementQuantity(product))}>
-                            <AddIcon />
-                        </IconButton>
-                        <IconButton color="primary" onClick={() => dispatch(decrementQuantity(product))}>
-                            <RemoveIcon />
-                        </IconButton>
-                        <IconButton color="error" onClick={() => dispatch(removeFromCart(product))}>
-                            <DeleteIcon />
-                        </IconButton>
-                    </ButtonGroup>
-                </CardContent>
+                <Box sx={{display: "flex", flexDirection: "column", alignItems: "flex-start"}}>
+                    <Typography variant={"subtitle2"}>{product.title}</Typography>
+                    <Typography>Item Price: {product.price}</Typography>
+                    <Typography>Quantity: {product.quantity}</Typography>
+                    {product.Size ? <Typography>Size: {product.Size}</Typography> : <></>}
+                </Box>
 
-            </Card>
-        </React.Fragment>
+
+                <ButtonGroup
+                    // className={styles.mainButtonGroup}
+                    style={{display: "flex", flexDirection: "column"}}
+                >
+                    <IconButton color="primary" onClick={() => dispatch(incrementQuantity(product))}>
+                        <AddIcon/>
+                    </IconButton>
+                    <IconButton color="primary" onClick={() => dispatch(decrementQuantity(product))}>
+                        <RemoveIcon/>
+                    </IconButton>
+                    <IconButton color="error" onClick={() => dispatch(removeFromCart(product))}>
+                        <DeleteIcon/>
+                    </IconButton>
+                </ButtonGroup>
+            </CardContent>
+
+        </Card>
     )
 }
 
