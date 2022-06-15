@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Category, Product} from "../utils/types";
+import {WritableDraft} from "immer/dist/types/types-external";
 
 
 interface cartState {
@@ -10,6 +11,30 @@ const initialState: cartState = {
     content: [],
 }
 
+function checkIfClothing(payload: Product) {
+
+    return payload.category == Category.MenSClothing ||
+        payload.category == Category.WomenSClothing;
+}
+
+function findItem(payload: Product, state: WritableDraft<cartState>): WritableDraft<Product> | undefined {
+    let itemExists: WritableDraft<Product> | undefined;
+
+    if(checkIfClothing(payload)) itemExists = state.content.find((item: Product) => item.id === payload.id && item.Size == payload.Size);
+    else itemExists = state.content.find((item: Product) => item.id === payload.id);
+
+    return itemExists;
+}
+
+function findIndexOfItem(payload: Product, state: WritableDraft<cartState>): number {
+    let index : number;
+
+    if(checkIfClothing(payload)) index = state.content.findIndex((item: Product) => item.id === payload.id && item.Size == payload.Size);
+    else index = state.content.findIndex((item: Product) => item.id === payload.id);
+
+    return index;
+}
+
 const cartSlice = createSlice({
     name: "cart",
     initialState,
@@ -18,17 +43,7 @@ const cartSlice = createSlice({
         //TODO: Simplify this using functions, if possible
         addToCart: (state, action: PayloadAction<Product>) => {
 
-            let itemExists = null;
-            //Check if item is Clothing
-            if(
-                action.payload.category == Category.MenSClothing ||
-                action.payload.category == Category.WomenSClothing
-            ) {
-                itemExists = state.content.find((item: Product) => item.id === action.payload.id && item.Size == action.payload.Size);
-            } else {
-                // Filters by id ONLY
-                itemExists = state.content.find((item: Product) => item.id === action.payload.id);
-            }
+            let itemExists = findItem(action.payload, state);
 
             // if it exists, increase its quantity
             if (itemExists) {
@@ -44,18 +59,7 @@ const cartSlice = createSlice({
         //TODO: Update this for Size Elements and categories
         incrementQuantity: (state, action: PayloadAction<Product>) => {
 
-            let itemExists = null;
-            // Look for item is Clothing
-            if(
-                action.payload.category == Category.MenSClothing ||
-                action.payload.category == Category.WomenSClothing
-            ) {
-                // Filters by id AND size
-                itemExists = state.content.find((item: Product) => item.id === action.payload.id && item.Size == action.payload.Size && item.category === action.payload.category);
-            } else {
-                // Filters by id ONLY
-                itemExists = state.content.find((item: Product) => item.id === action.payload.id);
-            }
+            let itemExists = findItem(action.payload, state);
 
             // If item not found, throw error
             if (!itemExists) console.error(`incrementQuantity ITEM NOT FOUND`);
@@ -72,19 +76,7 @@ const cartSlice = createSlice({
         },
         decrementQuantity: (state, action: PayloadAction<Product>) => {
 
-            let itemExists = null;
-            let isClothing = false;
-            //Check if item is Clothing
-            if(
-                action.payload.category == Category.MenSClothing ||
-                action.payload.category == Category.WomenSClothing
-            ) {
-                itemExists = state.content.find((item: Product) => item.id === action.payload.id && item.Size == action.payload.Size && item.category === action.payload.category);
-                isClothing = true;
-            } else {
-                // Filters by id ONLY
-                itemExists = state.content.find((item: Product) => item.id === action.payload.id);
-            }
+            let itemExists = findItem(action.payload, state);
 
             // If item not found, throw error
             if (!itemExists) console.error(`decrementQuantity ITEM NOT FOUND`);
@@ -94,12 +86,7 @@ const cartSlice = createSlice({
                 // If quantity is 1, remove it from state
                 if (itemExists.quantity === 1) {
                     // console.log(`decrementQuantity item quantity was 1 -  removing item: ${item.title}`)
-                    let index: number;
-
-                    // Find Item then remove it
-                    if(isClothing) index = state.content.findIndex((item) => item.id === action.payload.id && item.Size === action.payload.Size && item.category === action.payload.category);
-                    else index = state.content.findIndex((item) => item.id === action.payload.id);
-
+                    let index: number = findIndexOfItem(action.payload, state);
 
                     state.content.splice(index, 1);
 
@@ -119,20 +106,7 @@ const cartSlice = createSlice({
         },
         removeFromCart: (state, action: PayloadAction<Product>) => {
             // find item
-            // const index = state.content.findIndex((item) => item.id === action.payload.id);
-            let index: number;
-            // let isClothing = false;
-            //Check if item is Clothing
-            if(
-                action.payload.category == Category.MenSClothing ||
-                action.payload.category == Category.WomenSClothing
-            ) {
-                index = state.content.findIndex((item: Product) => item.id === action.payload.id && item.Size == action.payload.Size && item.category === action.payload.category);
-                // isClothing = true;
-            } else {
-                // Filters by id ONLY
-                index = state.content.findIndex((item: Product) => item.id === action.payload.id);
-            }
+            let index: number = findIndexOfItem(action.payload, state);
 
             // console.log(`removeFromCart removing item: ${index}`);
 
