@@ -1,11 +1,9 @@
 import * as React from 'react';
 import {Box, Container, Drawer, IconButton, Typography,} from "@mui/material";
-
 import Divider from "@mui/material/Divider";
 
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
 import {removeFromWishlist} from '../redux/WishlistSlice';
-
 
 import Image from "next/image";
 import imageLoader from "../imageLoader";

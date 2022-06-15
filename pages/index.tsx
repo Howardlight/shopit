@@ -1,7 +1,7 @@
 import * as React from "react";
 import type {GetStaticProps,} from 'next'
-import {Category, Product} from '../utils/types';
-import {Box, Grid, Typography} from "@mui/material";
+import {Product} from '../utils/types';
+import {Grid} from "@mui/material";
 import Layout from '../components/Layout';
 import ProductCard from "../components/ProductCard";
 import styles from "../styles/Home.module.css";

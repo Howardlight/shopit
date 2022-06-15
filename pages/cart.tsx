@@ -2,16 +2,13 @@ import {useAppDispatch, useAppSelector} from "../redux/hooks";
 
 import {Box, Container, Typography, Button, Collapse, Fade} from "@mui/material";
 
-// Styles
 import styles from "../styles/Cart.module.css";
 
-// Components
 import Layout from "../components/Layout";
-
-// Icons
 
 import Head from "next/head";
 import * as React from "react";
+
 import { CartCard } from "../components/CartCard";
 import { TransitionGroup } from "react-transition-group";
 
