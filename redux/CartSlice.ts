@@ -17,7 +17,7 @@ function checkIfClothing(payload: Product) {
         payload.category == Category.WomenSClothing;
 }
 
-function findItem(payload: Product, state: WritableDraft<cartState>): WritableDraft<Product> | undefined {
+function findProduct(payload: Product, state: WritableDraft<cartState>): WritableDraft<Product> | undefined {
     let itemExists: WritableDraft<Product> | undefined;
 
     if(checkIfClothing(payload)) itemExists = state.content.find((item: Product) => item.id === payload.id && item.Size == payload.Size);
@@ -26,7 +26,7 @@ function findItem(payload: Product, state: WritableDraft<cartState>): WritableDr
     return itemExists;
 }
 
-function findIndexOfItem(payload: Product, state: WritableDraft<cartState>): number {
+function findIndexOfProduct(payload: Product, state: WritableDraft<cartState>): number {
     let index : number;
 
     if(checkIfClothing(payload)) index = state.content.findIndex((item: Product) => item.id === payload.id && item.Size == payload.Size);
@@ -42,7 +42,7 @@ const cartSlice = createSlice({
         //TODO: Use EsDocs to explain this
         //TODO: Simplify this using functions, if possible
         addToCart: (state, action: PayloadAction<Product>) => {
-            let itemExists = findItem(action.payload, state);
+            let itemExists = findProduct(action.payload, state);
 
             // if it exists, increase its quantity
             if (itemExists) itemExists.quantity!++;
@@ -52,7 +52,7 @@ const cartSlice = createSlice({
         },
         //TODO: Update this for Size Elements and categories
         incrementQuantity: (state, action: PayloadAction<Product>) => {
-            let itemExists = findItem(action.payload, state);
+            let itemExists = findProduct(action.payload, state);
 
             // If item not found, throw error
             if (!itemExists) console.error(`incrementQuantity ITEM NOT FOUND`);
@@ -64,7 +64,7 @@ const cartSlice = createSlice({
             }
         },
         decrementQuantity: (state, action: PayloadAction<Product>) => {
-            let itemExists = findItem(action.payload, state);
+            let itemExists = findProduct(action.payload, state);
 
             // If item not found, throw error
             if (!itemExists) console.error(`decrementQuantity ITEM NOT FOUND`);
@@ -72,7 +72,7 @@ const cartSlice = createSlice({
 
                 // If quantity is 1, remove it from state
                 if (itemExists.quantity === 1) {
-                    let index: number = findIndexOfItem(action.payload, state);
+                    let index: number = findIndexOfProduct(action.payload, state);
                     state.content.splice(index, 1);
 
                 } else {
@@ -84,7 +84,7 @@ const cartSlice = createSlice({
             }
         },
         removeFromCart: (state, action: PayloadAction<Product>) => {
-            let index: number = findIndexOfItem(action.payload, state);
+            let index: number = findIndexOfProduct(action.payload, state);
 
             state.content.splice(index, 1);
         },
