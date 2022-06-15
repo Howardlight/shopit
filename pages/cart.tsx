@@ -1,6 +1,6 @@
 import {useAppDispatch, useAppSelector} from "../redux/hooks";
 
-import {Box, ButtonGroup, Card, CardContent, CardMedia, Container, IconButton, Typography} from "@mui/material";
+import {Box, ButtonGroup, Card, CardContent, CardMedia, Container, IconButton, Typography, Button} from "@mui/material";
 
 // Styles
 import styles from "../styles/Cart.module.css";
@@ -55,12 +55,15 @@ function CartPage() {
                     </Box>
                 ) : (
                     <>
+                        <Box sx={{display: "flex", flexDirection: "row", justifyContent: "space-between", ml: "25px", mr: "25px"}}>
+                            <Typography variant={"h5"} color="primary">Grand Total: $ {Math.round(getTotalPrice() * 100) / 100}</Typography>
+                            <Button variant="outlined">Check out</Button>
+                        </Box>
                         {cart.map((item, index) => (
                             <React.Fragment key={index}>
                                 <CartCard product={item} dispatch={dispatch} />
                             </React.Fragment>
                         ))}
-                        <h2>Grand Total: $ {Math.round(getTotalPrice() * 100) / 100}</h2>
                     </>
                 )}
             </Container>
@@ -91,8 +94,8 @@ function CartCard({product, dispatch}: {product: Product, dispatch: Dispatch<Any
 
 
                 <Box sx={{display: "flex", flexDirection: "column", alignItems: "flex-start"}}>
-                    <Typography variant={"subtitle2"}>{product.title}</Typography>
-                    <Typography>Item Price: {product.price}</Typography>
+                    <Typography variant={"h6"} gutterBottom>{product.title}</Typography>
+                    <Typography>Item Price: {product.price}$</Typography>
                     <Typography>Quantity: {product.quantity}</Typography>
                     {product.Size ? <Typography>Size: {product.Size}</Typography> : <></>}
                 </Box>
