@@ -1,65 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Category, Product} from "../utils/types";
-import {WritableDraft} from "immer/dist/types/types-external";
+import {Product} from "../utils/types";
+import { findProduct, findIndexOfProduct } from "./reduxHelpers";
 
 
-interface cartState {
+export interface cartState {
     content: Product[];
 }
 
 const initialState: cartState = {
     content: [],
-}
-
-/**
- *
- * Checks if Product Category is of MenSClothing or WomenSClothing
- *
- * @param payload
- *
- * @returns `True` if Product is Clothing
- * @returns `False` if Product is NOT Clothing
- */
-function checkIfClothing(payload: Product) {
-
-    return payload.category == Category.MenSClothing ||
-        payload.category == Category.WomenSClothing;
-}
-
-
-/**
- * 
- * Looks for Product inside of state and returns it
- * 
- * @param payload - The payload input which we have to find inside of state
- * @param state - The Redux State
- * 
- * @returns `Product` | `undefined`
- */
-function findProduct(payload: Product, state: WritableDraft<cartState>): WritableDraft<Product> | undefined {
-    let itemExists: WritableDraft<Product> | undefined;
-
-    if(checkIfClothing(payload)) itemExists = state.content.find((item: Product) => item.id === payload.id && item.Size == payload.Size);
-    else itemExists = state.content.find((item: Product) => item.id === payload.id);
-
-    return itemExists;
-}
-
-
-/**
- * Looks for Index of Product inside of state and returns it
- * 
- * @param payload - The payload input which we have to find inside of state
- * @param state - The Redux State
- * @returns `number`
- */
-function findIndexOfProduct(payload: Product, state: WritableDraft<cartState>): number {
-    let index : number;
-
-    if(checkIfClothing(payload)) index = state.content.findIndex((item: Product) => item.id === payload.id && item.Size == payload.Size);
-    else index = state.content.findIndex((item: Product) => item.id === payload.id);
-
-    return index;
 }
 
 const cartSlice = createSlice({
