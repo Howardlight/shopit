@@ -44,11 +44,7 @@ export default function ProductCard(props: { product: Product }) {
 
     function AddToCartButton() {
 
-        const handleAddToCartClick = () => {
-            //TODO: Abstract handling adding carts to its own component, since they all are similar
-            dispatch(addToCart(props.product));
-        };
-
+        const handleAddToCartClick = () => dispatch(addToCart(props.product));
 
         return (
             <Button
