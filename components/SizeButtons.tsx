@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Dispatch, SetStateAction, useState} from "react";
 import {Product, Size} from "../utils/types";
-import {Button} from "@mui/material";
+import {Button, Box} from "@mui/material";
 import {AnyAction} from "redux";
 import {addToCart} from "../redux/CartSlice";
 
@@ -61,6 +61,7 @@ export function ItemSizeButtonFrontPage(
         <Button
             variant={"outlined"}
             size={"small"}
+            style={{minWidth: "50px"}}
             onClick={() => {
 
                 // Take the product, then give it its associated Size
@@ -84,10 +85,11 @@ export function ItemSizesButtonGroupFrontPage({dispatch, product}: {dispatch: Di
     const sizes: Size[] = [Size.Small, Size.Medium, Size.Large, Size.ExtraLarge];
     return (
         <React.Fragment>
-            <div
+            <Box
                 style={{
                     display: "flex",
                     justifyContent: "space-between",
+                    gap: "5px"
                 }}>
                 {sizes.map((size: string) => {
                     return (
@@ -99,7 +101,7 @@ export function ItemSizesButtonGroupFrontPage({dispatch, product}: {dispatch: Di
                         />
                     );
                 })}
-            </div>
+            </Box>
         </React.Fragment>
     );
 }
