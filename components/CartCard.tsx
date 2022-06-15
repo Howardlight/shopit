@@ -18,10 +18,9 @@ export function CartCard({ product, dispatch }: { product: Product; dispatch: Di
 
             <CardMedia
                 component={"img"}
-
                 style={{ width: "auto", objectFit: "contain", padding: "5px" }}
-
-                image={product.image} />
+                image={product.image} 
+            />
 
 
             <CardContent style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}
