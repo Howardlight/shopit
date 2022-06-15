@@ -11,12 +11,31 @@ const initialState: cartState = {
     content: [],
 }
 
+/**
+ *
+ * Checks if Product Category is of MenSClothing or WomenSClothing
+ *
+ * @param payload
+ *
+ * @returns `True` if Product is Clothing
+ * @returns `False` if Product is NOT Clothing
+ */
 function checkIfClothing(payload: Product) {
 
     return payload.category == Category.MenSClothing ||
         payload.category == Category.WomenSClothing;
 }
 
+
+/**
+ * 
+ * Looks for Product inside of state and returns it
+ * 
+ * @param payload - The payload input which we have to find inside of state
+ * @param state - The Redux State
+ * 
+ * @returns `Product` | `undefined`
+ */
 function findProduct(payload: Product, state: WritableDraft<cartState>): WritableDraft<Product> | undefined {
     let itemExists: WritableDraft<Product> | undefined;
 
@@ -26,6 +45,14 @@ function findProduct(payload: Product, state: WritableDraft<cartState>): Writabl
     return itemExists;
 }
 
+
+/**
+ * Looks for Index of Product inside of state and returns it
+ * 
+ * @param payload - The payload input which we have to find inside of state
+ * @param state - The Redux State
+ * @returns `number`
+ */
 function findIndexOfProduct(payload: Product, state: WritableDraft<cartState>): number {
     let index : number;
 
@@ -39,8 +66,6 @@ const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        //TODO: Use EsDocs to explain this
-        //TODO: Simplify this using functions, if possible
         addToCart: (state, action: PayloadAction<Product>) => {
             let itemExists = findProduct(action.payload, state);
 
@@ -50,7 +75,6 @@ const cartSlice = createSlice({
             // If it doesn't exist, add it to state
             else state.content.push({ ...action.payload, quantity: 1 });
         },
-        //TODO: Update this for Size Elements and categories
         incrementQuantity: (state, action: PayloadAction<Product>) => {
             let itemExists = findProduct(action.payload, state);
 
