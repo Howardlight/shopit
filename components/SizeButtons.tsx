@@ -54,7 +54,16 @@ export function ItemSizesButtonGroup({setSize}: { setSize: Dispatch<SetStateActi
     );
 }
 
-//TODO: Explain this
+/**
+ * A single Size Button which has `Size` as its content.
+ * Clicking the button triggers a `dispatch` event which adds `product` to Redux cart State
+ * @remark This Component is used as a child/part of `ItemSizesButtonGroupFrontPage`
+ * 
+ * @param size - size of Button
+ * @param dispatch - dispatch Command which will dispatch adding relevant item to Redux cart State
+ * @param product - Product item relevant
+ * @returns `ReactElement` - A button with `size` as content
+ */
 export function ItemSizeButtonFrontPage(
     {size, dispatch, product}: { size: string, dispatch: Dispatch<AnyAction>, product: Product }) {
     return (
@@ -77,11 +86,18 @@ export function ItemSizeButtonFrontPage(
     )
 }
 
-//TODO: Explain this
+
+/**
+ * 
+ * A Group of Size buttons used on the front page ProductCard
+ *  
+ * @param dispatch - dispatch Command which will dispatch adding relevant item to Redux cart State
+ * @param product - Product item relevant 
+ * @returns `ReactElement` - a Group of 4 Buttons
+ */
 export function ItemSizesButtonGroupFrontPage({dispatch, product}: {dispatch: Dispatch<AnyAction>, product: Product}) {
 
     // Sizes: S|M|L|XL
-    //TODO: Global this, maybe export it
     const sizes: Size[] = [Size.Small, Size.Medium, Size.Large, Size.ExtraLarge];
     return (
         <React.Fragment>
